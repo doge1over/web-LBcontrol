@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LBcontrol - История действий</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="header">
+    <div class="logo-container">
+        <img src="image/logo.png" alt="LBcontrol Logo" class="logo">
+        <div class="company-name">LBcontrol</div>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()">
+        🌙 Ночная тема
+    </button>
+</div>
+
+<div class="main-container">
+    <div class="history-container">
+        <!-- Заголовок и кнопки -->
+        <div class="history-header">
+            <button class="back-button" onclick="goBack()">
+                ← Назад
+            </button>
+            <h1 class="history-title">История действий</h1>
+            <button class="support-button" onclick="openSupportModal()">
+                💬 Поддержка
+            </button>
+        </div>
+
+        <!-- Фильтры и поиск -->
+        <div class="filters-section">
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="userFilter">Логин:</label>
+                    <div class="select-wrapper">
+                        <select id="userFilter">
+                            <option value="">Все пользователи</option>
+                            <option value="admin">admin</option>
+                            <option value="user1">user1</option>
+                            <option value="user2">user2</option>
+                            <option value="chemist">chemist</option>
+                            <option value="manager">manager</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label for="searchInput">Поиск:</label>
+                    <input type="text" id="searchInput" placeholder="Поиск по всем полям...">
+                </div>
+            </div>
+
+            <div class="filter-row">
+                <div class="filter-group">
+                    <label for="dateFrom">Дата от:</label>
+                    <input type="date" id="dateFrom">
+                </div>
+
+                <div class="filter-group">
+                    <label for="dateTo">Дата до:</label>
+                    <input type="date" id="dateTo">
+                </div>
+
+                <button class="apply-filters-btn" onclick="applyFilters()">
+                    🔍 Применить фильтры
+                </button>
+
+                <button class="reset-filters-btn" onclick="resetFilters()">
+                    🗑️ Сбросить
+                </button>
+            </div>
+
+            <!-- Статистика фильтров -->
+            <div class="filter-stats">
+                Найдено записей: <span id="resultsCount">0</span>
+            </div>
+        </div>
+
+        <!-- Таблица истории -->
+        <div class="table-container">
+            <table class="history-table">
+                <thead>
+                <tr>
+                    <th>LogID</th>
+                    <th>Дата</th>
+                    <th>Действие</th>
+                    <th>Инициатор</th>
+                    <th>Реактив</th>
+                    <th>ID реагента</th>
+                    <th>Id партии</th>
+                </tr>
+                </thead>
+                <tbody id="historyTableBody">
+                <!-- Данные будут вставлены через JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Пагинация -->
+        <div class="pagination">
+            <button class="page-btn" id="prevPage" onclick="changePage(-1)">← Назад</button>
+            <span class="page-info" id="pageInfo">Страница 1 из 1</span>
+            <button class="page-btn" id="nextPage" onclick="changePage(1)">Вперед →</button>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно поддержки -->
+<div id="supportModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Форма поддержки</h2>
+            <span class="close" onclick="closeSupportModal()">&times;</span>
+        </div>
+        <form class="support-form">
+            <div class="form-group">
+                <label for="supportTopic">Тема</label>
+                <input type="text" id="supportTopic" placeholder="Введите тему обращения" required>
+            </div>
+
+            <div class="form-group">
+                <label for="supportLocation">Где возникла проблема</label>
+                <div class="select-wrapper">
+                    <select id="supportLocation" required>
+                        <option value="">Выберите раздел</option>
+                        <option value="history" selected>📊 История действий</option>
+                        <option value="notifications">📢 Оповещения</option>
+                        <option value="reagents">🧪 Таблица учета реактивов</option>
+                        <option value="suppliers">🚚 Поставщики</option>
+                        <option value="admin">⚙️ Администрирование</option>
+                        <option value="other">❓ Другое</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="supportScreenshot">Скриншот (необязательно)</label>
+                <input type="file" id="supportScreenshot" accept="image/*">
+            </div>
+
+            <div class="form-group">
+                <label for="supportMessage">Текст сообщения</label>
+                <textarea id="supportMessage" placeholder="Подробно опишите проблему и при каких обстоятельствах она возникла" rows="5" required></textarea>
+            </div>
+
+            <div class="form-buttons">
+                <button type="button" class="cancel-button" onclick="closeSupportModal()">Отмена</button>
+                <button type="submit" class="submit-button">Отправить</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="footer">
+    <p>© 2024 LBcontrol. Все права защищены.</p>
+</div>
+
+<script src="script.js"></script>
+<script>
+    let currentPage = 1;
+    const pageSize = 5; // По 5 записей на страницу для демонстрации
+    let allLogs = [];
+    let filteredLogs = [];
+
+    // Инициализация тестовых данных
+    function initializeData() {
+        allLogs = [
+            { id: 'LOG-001', date: '2024-12-15T10:30:00', action: 'Добавление реагента', user: 'admin', reagent: 'Соляная кислота', reagentId: 'CHEM-001', batchId: 'BATCH-001' },
+            { id: 'LOG-002', date: '2024-12-15T11:15:00', action: 'Изменение количества', user: 'chemist', reagent: 'Ацетон', reagentId: 'CHEM-002', batchId: 'BATCH-002' },
+            { id: 'LOG-003', date: '2024-12-14T14:20:00', action: 'Списание реагента', user: 'user1', reagent: 'Этанол', reagentId: 'CHEM-003', batchId: 'BATCH-003' },
+            { id: 'LOG-004', date: '2024-12-14T16:45:00', action: 'Добавление поставщика', user: 'manager', reagent: '-', reagentId: '-', batchId: '-' },
+            { id: 'LOG-005', date: '2024-12-13T09:10:00', action: 'Изменение данных', user: 'admin', reagent: 'Перекись водорода', reagentId: 'CHEM-004', batchId: 'BATCH-004' },
+            { id: 'LOG-006', date: '2024-12-13T11:30:00', action: 'Просмотр отчета', user: 'user2', reagent: '-', reagentId: '-', batchId: '-' },
+            { id: 'LOG-007', date: '2024-12-12T08:45:00', action: 'Добавление реагента', user: 'chemist', reagent: 'Серная кислота', reagentId: 'CHEM-005', batchId: 'BATCH-005' },
+            { id: 'LOG-008', date: '2024-12-12T13:20:00', action: 'Удаление реагента', user: 'admin', reagent: 'Метанол', reagentId: 'CHEM-006', batchId: 'BATCH-006' },
+            { id: 'LOG-009', date: '2024-12-11T10:00:00', action: 'Изменение поставщика', user: 'manager', reagent: '-', reagentId: '-', batchId: '-' },
+            { id: 'LOG-010', date: '2024-12-11T15:45:00', action: 'Списание реагента', user: 'user1', reagent: 'Изопропанол', reagentId: 'CHEM-007', batchId: 'BATCH-007' },
+            { id: 'LOG-011', date: '2024-12-10T09:30:00', action: 'Добавление реагента', user: 'chemist', reagent: 'Азотная кислота', reagentId: 'CHEM-008', batchId: 'BATCH-008' },
+            { id: 'LOG-012', date: '2024-12-10T14:15:00', action: 'Изменение данных', user: 'admin', reagent: 'Гексан', reagentId: 'CHEM-009', batchId: 'BATCH-009' }
+        ];
+
+        filteredLogs = [...allLogs];
+        applyFilters(); // Применяем фильтры при инициализации
+    }
+
+    function applyFilters() {
+        const userFilter = document.getElementById('userFilter').value;
+        const searchFilter = document.getElementById('searchInput').value.toLowerCase();
+        const dateFrom = document.getElementById('dateFrom').value;
+        const dateTo = document.getElementById('dateTo').value;
+
+        filteredLogs = allLogs.filter(log => {
+            // Фильтр по пользователю
+            if (userFilter && log.user !== userFilter) return false;
+
+            // Поиск по всем полям
+            if (searchFilter) {
+                const searchable = `${log.id} ${log.date} ${log.action} ${log.user} ${log.reagent} ${log.reagentId} ${log.batchId}`.toLowerCase();
+                if (!searchable.includes(searchFilter)) return false;
+            }
+
+            // Фильтр по дате
+            if (dateFrom) {
+                const logDate = log.date.split('T')[0];
+                if (logDate < dateFrom) return false;
+            }
+            if (dateTo) {
+                const logDate = log.date.split('T')[0];
+                if (logDate > dateTo) return false;
+            }
+
+            return true;
+        });
+
+        currentPage = 1; // Сбрасываем на первую страницу при фильтрации
+        renderTable();
+        updatePagination();
+        updateStats();
+    }
+
+    function resetFilters() {
+        document.getElementById('userFilter').value = '';
+        document.getElementById('searchInput').value = '';
+        document.getElementById('dateFrom').value = '';
+        document.getElementById('dateTo').value = '';
+        applyFilters();
+    }
+
+    function changePage(direction) {
+        const totalPages = Math.ceil(filteredLogs.length / pageSize);
+        const newPage = currentPage + direction;
+
+        if (newPage >= 1 && newPage <= totalPages) {
+            currentPage = newPage;
+            renderTable();
+            updatePagination();
+        }
+    }
+
+    function renderTable() {
+        const tbody = document.getElementById('historyTableBody');
+        const startIndex = (currentPage - 1) * pageSize;
+        const endIndex = startIndex + pageSize;
+        const pageLogs = filteredLogs.slice(startIndex, endIndex);
+
+        if (pageLogs.length === 0) {
+            tbody.innerHTML = `
+                    <tr>
+                        <td colspan="7" style="text-align: center; padding: 40px; color: #cccccc;">
+                            📭 Записи не найдены. Попробуйте изменить параметры фильтрации.
+                        </td>
+                    </tr>
+                `;
+            return;
+        }
+
+        tbody.innerHTML = pageLogs.map(log => `
+                <tr>
+                    <td>${log.id}</td>
+                    <td>${formatDate(log.date)}</td>
+                    <td>${log.action}</td>
+                    <td>
+                        <span class="user-badge ${log.user}">${log.user}</span>
+                    </td>
+                    <td>${log.reagent}</td>
+                    <td>${log.reagentId}</td>
+                    <td>${log.batchId}</td>
+                </tr>
+            `).join('');
+    }
+
+    function updatePagination() {
+        const totalPages = Math.ceil(filteredLogs.length / pageSize);
+        const pageInfo = document.getElementById('pageInfo');
+        const prevBtn = document.getElementById('prevPage');
+        const nextBtn = document.getElementById('nextPage');
+
+        pageInfo.textContent = `Страница ${currentPage} из ${totalPages}`;
+        prevBtn.disabled = currentPage === 1;
+        nextBtn.disabled = currentPage === totalPages || totalPages === 0;
+    }
+
+    function updateStats() {
+        const resultsCount = document.getElementById('resultsCount');
+        resultsCount.textContent = filteredLogs.length;
+    }
+
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('ru-RU') + ' ' + date.toLocaleTimeString('ru-RU', {
+            hour: '2-digit',
+            minute: '2-digit'
+        });
+    }
+
+    function goBack() {
+        window.location.href = 'menu.html';
+    }
+
+    function openSupportModal() {
+        document.getElementById('supportModal').style.display = 'flex';
+    }
+
+    function closeSupportModal() {
+        document.getElementById('supportModal').style.display = 'none';
+    }
+
+    // Инициализация при загрузке
+    document.addEventListener('DOMContentLoaded', function() {
+        initializeData();
+
+        // Мгновенная фильтрация при изменении полей
+        document.getElementById('searchInput').addEventListener('input', applyFilters);
+        document.getElementById('userFilter').addEventListener('change', applyFilters);
+        document.getElementById('dateFrom').addEventListener('change', applyFilters);
+        document.getElementById('dateTo').addEventListener('change', applyFilters);
+    });
+
+    // Закрытие модального окна при клике вне его
+    window.onclick = function(event) {
+        const modal = document.getElementById('supportModal');
+        if (event.target == modal) {
+            closeSupportModal();
+        }
+    }
+
+    // Обработка формы поддержки
+    document.querySelector('.support-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        alert('Сообщение отправлено в поддержку!');
+        closeSupportModal();
+        this.reset();
+    });
+</script>
+</body>
+</html>

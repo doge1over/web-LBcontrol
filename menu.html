@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LBcontrol - Меню</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="header">
+    <div class="logo-container">
+        <img src="image/logo.png" alt="LBcontrol Logo" class="logo">
+        <div class="company-name">LBcontrol</div>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()">
+        🌙 Ночная тема
+    </button>
+</div>
+
+<div class="main-container">
+    <div class="menu-with-info">
+        <!-- Левая часть - информация пользователя -->
+        <div class="info-section">
+            <div class="user-info-sidebar">
+                <h2 class="welcome-title">Добро пожаловать!</h2>
+
+                <div class="user-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Логин:</span>
+                        <span class="detail-value">admin</span>
+                    </div>
+
+                    <div class="detail-item">
+                        <span class="detail-label">Ваша Лаборатория:</span>
+                        <span class="detail-value">Химическая лаборатория №1</span>
+                    </div>
+
+                    <div class="detail-item">
+                        <span class="detail-label">Права доступа:</span>
+                        <span class="detail-value">Администратор</span>
+                    </div>
+                </div>
+
+                <button class="logout-sidebar-btn" onclick="logout()">
+                    👤 Выйти из системы
+                </button>
+            </div>
+        </div>
+
+        <!-- Правая часть - меню -->
+        <div class="menu-section">
+            <h1 class="menu-title">Меню системы</h1>
+
+            <div class="menu-buttons">
+                <button class="menu-button" onclick="navigateTo('notifications')">
+                    <span class="button-icon">📢</span>
+                    <span class="button-text">Оповещения</span>
+                </button>
+
+                <button class="menu-button" onclick="navigateTo('history')">
+                    <span class="button-icon">📊</span>
+                    <span class="button-text">История действий</span>
+                </button>
+
+                <button class="menu-button" onclick="navigateTo('reagents')">
+                    <span class="button-icon">🧪</span>
+                    <span class="button-text">Таблица учета реактивов</span>
+                </button>
+
+                <button class="menu-button" onclick="navigateTo('suppliers')">
+                    <span class="button-icon">🚚</span>
+                    <span class="button-text">Поставщики</span>
+                </button>
+
+                <button class="menu-button" onclick="navigateTo('admin')">
+                    <span class="button-icon">⚙️</span>
+                    <span class="button-text">Администрирование</span>
+                </button>
+
+                <button class="menu-button" onclick="navigateTo('guide')">
+                    <span class="button-icon">📖</span>
+                    <span class="button-text">Руководство пользователя</span>
+                </button>
+
+                <button class="menu-button support-btn" onclick="navigateTo('support')">
+                    <span class="button-icon">💬</span>
+                    <span class="button-text">Поддержка</span>
+                </button>
+
+                <button class="menu-button home-btn" onclick="goHome()">
+                    <span class="button-icon">🏠</span>
+                    <span class="button-text">Выход на главную</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>© 2024 LBcontrol. Все права защищены.</p>
+</div>
+
+<script src="script.js"></script>
+<script>
+    function navigateTo(page) {
+        const pages = {
+            'notifications': 'notifications.html',
+            'history': 'history.html',
+            'reagents': 'reagents.html',
+            'suppliers': 'suppliers.html',
+            'admin': 'admin.html',
+            'guide': 'guide.html',
+            'support': 'support.html'
+        };
+
+        if (pages[page]) {
+            window.location.href = pages[page];
+        } else {
+            alert(`Страница "${page}" в разработке`);
+        }
+    }
+
+    function logout() {
+        if(confirm('Вы уверены, что хотите выйти из системы?')) {
+            window.location.href = 'index.html';
+        }
+    }
+
+    function goHome() {
+        window.location.href = 'dashboard.html';
+    }
+</script>
+</body>
+</html>
