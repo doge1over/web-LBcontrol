@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LBcontrol - Учет реактивов</title>
+    <title>LBcontrol - Таблица учета реактивов</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="reagents.css">
 </head>
@@ -31,55 +31,48 @@
             </button>
         </div>
 
-        <!-- Фильтры и поиск -->
+        <!-- Секция фильтров -->
         <div class="filters-section">
             <div class="filter-row">
-                <div class="filter-group">
-                    <label for="labFilter">Лаборатория:</label>
-                    <div class="select-wrapper">
-                        <select id="labFilter">
-                            <option value="">Все лаборатории</option>
-                            <option value="lab1">Химическая лаборатория №1</option>
-                            <option value="lab2">Биохимическая лаборатория</option>
-                            <option value="lab3">Лаборатория органической химии</option>
-                            <option value="lab4">Исследовательская лаборатория</option>
-                        </select>
+                <div class="filter-group search-group-with-clear">
+                    <label for="searchInput">Поиск реактивов:</label>
+                    <div class="search-input-container">
+                        <input type="text" id="searchInput" placeholder="Введите название, номер или серию...">
+                        <button type="button" class="clear-search-btn" onclick="clearSearch()" title="Очистить поиск">
+                            ×
+                        </button>
                     </div>
                 </div>
 
                 <div class="filter-group">
-                    <label for="searchInput">Поиск:</label>
-                    <input type="text" id="searchInput" placeholder="Поиск по названию, номеру, серии...">
+                    <label for="labFilter">Лаборатория:</label>
+                    <select id="labFilter">
+                        <option value="">Все лаборатории</option>
+                        <option value="lab1">Химическая лаборатория №1</option>
+                        <option value="lab2">Биохимическая лаборатория</option>
+                        <option value="lab3">Лаборатория органической химии</option>
+                        <option value="lab4">Исследовательская лаборатория</option>
+                    </select>
                 </div>
             </div>
 
             <div class="filter-row">
-                <div class="checkbox-group">
-                    <input type="checkbox" id="showAllLabs" onchange="applyFilters()">
-                    <label for="showAllLabs">Показать реактивы всех лабораторий</label>
-                </div>
-
                 <div class="radio-group">
+                    <label>Статус:</label>
                     <div class="radio-options">
-                        <input type="radio" id="filterAll" name="statusFilter" value="all" checked onchange="applyFilters()">
+                        <input type="radio" id="filterAll" name="statusFilter" value="all" checked
+                               onchange="applyFilters()">
                         <label for="filterAll">Все</label>
 
-                        <input type="radio" id="filterAvailable" name="statusFilter" value="available" onchange="applyFilters()">
+                        <input type="radio" id="filterAvailable" name="statusFilter" value="available"
+                               onchange="applyFilters()">
                         <label for="filterAvailable">В наличии</label>
 
-                        <input type="radio" id="filterArchive" name="statusFilter" value="archive" onchange="applyFilters()">
+                        <input type="radio" id="filterArchive" name="statusFilter" value="archive"
+                               onchange="applyFilters()">
                         <label for="filterArchive">Архив</label>
                     </div>
                 </div>
-
-                <button class="reset-filters-btn" onclick="resetFilters()">
-                    🗑️ Сбросить
-                </button>
-            </div>
-
-            <!-- Статистика -->
-            <div class="filter-stats">
-                Найдено реактивов: <span id="resultsCount">0</span>
             </div>
         </div>
 
@@ -88,51 +81,32 @@
             <table class="reagents-table">
                 <thead>
                 <tr>
-                    <th>Название реактива</th>
+                    <th>Реактив</th>
                     <th>Номер</th>
                     <th>Серия</th>
-                    <th>Партий</th>
+                    <th>Партии</th>
                     <th>Помещение</th>
                     <th>Лаборатория</th>
                 </tr>
                 </thead>
                 <tbody id="reagentsTableBody">
-                <!-- Данные будут вставлены через JavaScript -->
+                <!-- Данные будут заполняться через JavaScript -->
                 </tbody>
             </table>
         </div>
 
         <!-- Пагинация -->
         <div class="pagination">
-            <button class="page-btn" id="prevPage" onclick="changePage(-1)">← Назад</button>
+            <button class="page-btn" id="prevPage" onclick="changePage(-1)" disabled>← Назад</button>
             <span class="page-info" id="pageInfo">Страница 1 из 1</span>
-            <button class="page-btn" id="nextPage" onclick="changePage(1)">Вперед →</button>
+            <button class="page-btn" id="nextPage" onclick="changePage(1)" disabled>Вперед →</button>
         </div>
 
-        <!-- Кнопки управления -->
+        <!-- Кнопки действий -->
         <div class="action-buttons">
-            <button class="action-btn add-btn" onclick="addReagent()">
-                Добавить
-            </button>
-            <button class="action-btn properties-btn" onclick="showProperties()">
-                Свойства
-            </button>
-            <button class="action-btn delete-btn" onclick="deleteReagent()">
-                Удалить
-            </button>
-        </div>
-
-        <!-- Дополнительные кнопки -->
-        <div class="secondary-buttons">
-            <button class="secondary-btn" onclick="showBatches()">
-                📦 Партии (Описание)
-            </button>
-            <button class="secondary-btn archive-btn" onclick="archiveReagent()">
-                📁 Архив реактива
-            </button>
-            <button class="secondary-btn back-btn" onclick="goBack()">
-                ↩️ Назад в меню
-            </button>
+            <button class="action-btn add-btn" onclick="addReagent()">➕ Добавить реактив</button>
+            <button class="action-btn properties-btn" onclick="showProperties()">📋 Свойства</button>
+            <button class="action-btn delete-btn" onclick="deleteReagent()">🗑️ Удалить</button>
         </div>
     </div>
 </div>
@@ -156,9 +130,9 @@
                     <select id="supportLocation" required>
                         <option value="">Выберите раздел</option>
                         <option value="reagents" selected>🧪 Таблица учета реактивов</option>
-                        <option value="history">📊 История действий</option>
-                        <option value="notifications">📢 Оповещения</option>
                         <option value="suppliers">🚚 Поставщики</option>
+                        <option value="notifications">📢 Оповещения</option>
+                        <option value="history">📊 История действий</option>
                         <option value="admin">⚙️ Администрирование</option>
                         <option value="other">❓ Другое</option>
                     </select>
@@ -188,308 +162,6 @@
 </div>
 
 <script src="script.js"></script>
-<script>
-    let currentPage = 1;
-    const itemsPerPage = 10;
-    let allReagents = [];
-    let filteredReagents = [];
-
-    // Инициализация тестовых данных
-    function initializeData() {
-        // Создаем больше тестовых данных для демонстрации пагинации
-        allReagents = [
-            {
-                name: 'Соляная кислота',
-                number: 'CHEM-001',
-                series: 'S-2024-01',
-                batches: { available: 3, writtenOff: 1 },
-                room: '4.20',
-                lab: 'Химическая лаборатория №1',
-                status: 'available'
-            },
-            {
-                name: 'Ацетон',
-                number: 'CHEM-002',
-                series: 'S-2024-02',
-                batches: { available: 5, writtenOff: 2 },
-                room: '3.27',
-                lab: 'Биохимическая лаборатория',
-                status: 'available'
-            },
-            {
-                name: 'Этанол',
-                number: 'CHEM-003',
-                series: 'S-2024-03',
-                batches: { available: 0, writtenOff: 8 },
-                room: '4.15',
-                lab: 'Химическая лаборатория №1',
-                status: 'archive'
-            },
-            {
-                name: 'Перекись водорода',
-                number: 'CHEM-004',
-                series: 'S-2024-04',
-                batches: { available: 2, writtenOff: 0 },
-                room: '3.15',
-                lab: 'Лаборатория органической химии',
-                status: 'available'
-            },
-            {
-                name: 'Серная кислота',
-                number: 'CHEM-005',
-                series: 'S-2023-12',
-                batches: { available: 1, writtenOff: 3 },
-                room: '4.25',
-                lab: 'Химическая лаборатория №1',
-                status: 'available'
-            },
-            {
-                name: 'Метанол',
-                number: 'CHEM-006',
-                series: 'S-2023-11',
-                batches: { available: 0, writtenOff: 5 },
-                room: '3.18',
-                lab: 'Исследовательская лаборатория',
-                status: 'archive'
-            },
-            {
-                name: 'Изопропанол',
-                number: 'CHEM-007',
-                series: 'S-2024-05',
-                batches: { available: 4, writtenOff: 1 },
-                room: '4.10',
-                lab: 'Биохимическая лаборатория',
-                status: 'available'
-            },
-            {
-                name: 'Гексан',
-                number: 'CHEM-008',
-                series: 'S-2024-06',
-                batches: { available: 2, writtenOff: 0 },
-                room: '3.22',
-                lab: 'Лаборатория органической химии',
-                status: 'available'
-            },
-            {
-                name: 'Толуол',
-                number: 'CHEM-009',
-                series: 'S-2024-07',
-                batches: { available: 1, writtenOff: 2 },
-                room: '4.30',
-                lab: 'Химическая лаборатория №1',
-                status: 'available'
-            },
-            {
-                name: 'Дихлорметан',
-                number: 'CHEM-010',
-                series: 'S-2024-08',
-                batches: { available: 3, writtenOff: 1 },
-                room: '3.25',
-                lab: 'Исследовательская лаборатория',
-                status: 'available'
-            },
-            {
-                name: 'Ацетонитрил',
-                number: 'CHEM-011',
-                series: 'S-2024-09',
-                batches: { available: 0, writtenOff: 4 },
-                room: '4.18',
-                lab: 'Биохимическая лаборатория',
-                status: 'archive'
-            },
-            {
-                name: 'Формальдегид',
-                number: 'CHEM-012',
-                series: 'S-2024-10',
-                batches: { available: 2, writtenOff: 0 },
-                room: '3.30',
-                lab: 'Химическая лаборатория №1',
-                status: 'available'
-            }
-        ];
-
-        filteredReagents = [...allReagents];
-        applyFilters();
-    }
-
-    function applyFilters() {
-        const labFilter = document.getElementById('labFilter').value;
-        const searchFilter = document.getElementById('searchInput').value.toLowerCase();
-        const showAllLabs = document.getElementById('showAllLabs').checked;
-        const statusFilter = document.querySelector('input[name="statusFilter"]:checked').value;
-
-        filteredReagents = allReagents.filter(reagent => {
-            // Фильтр по лаборатории
-            if (!showAllLabs && labFilter && reagent.lab !== getLabName(labFilter)) return false;
-
-            // Поиск по всем полям
-            if (searchFilter) {
-                const searchable = `${reagent.name} ${reagent.number} ${reagent.series} ${reagent.room} ${reagent.lab}`.toLowerCase();
-                if (!searchable.includes(searchFilter)) return false;
-            }
-
-            // Фильтр по статусу
-            if (statusFilter !== 'all' && reagent.status !== statusFilter) return false;
-
-            return true;
-        });
-
-        currentPage = 1; // Сбрасываем на первую страницу при фильтрации
-        renderTable();
-        updatePagination();
-        updateStats();
-    }
-
-    function getLabName(labKey) {
-        const labs = {
-            'lab1': 'Химическая лаборатория №1',
-            'lab2': 'Биохимическая лаборатория',
-            'lab3': 'Лаборатория органической химии',
-            'lab4': 'Исследовательская лаборатория'
-        };
-        return labs[labKey] || labKey;
-    }
-
-    function resetFilters() {
-        document.getElementById('labFilter').value = '';
-        document.getElementById('searchInput').value = '';
-        document.getElementById('showAllLabs').checked = false;
-        document.getElementById('filterAll').checked = true;
-        applyFilters();
-    }
-
-    function changePage(direction) {
-        const totalPages = Math.ceil(filteredReagents.length / itemsPerPage);
-        const newPage = currentPage + direction;
-
-        if (newPage >= 1 && newPage <= totalPages) {
-            currentPage = newPage;
-            renderTable();
-            updatePagination();
-        }
-    }
-
-    function renderTable() {
-        const tbody = document.getElementById('reagentsTableBody');
-        const startIndex = (currentPage - 1) * itemsPerPage;
-        const endIndex = startIndex + itemsPerPage;
-        const pageData = filteredReagents.slice(startIndex, endIndex);
-
-        if (pageData.length === 0) {
-            tbody.innerHTML = `
-                    <tr>
-                        <td colspan="6" style="text-align: center; padding: 40px; color: #cccccc;">
-                            📭 Реактивы не найдены. Попробуйте изменить параметры фильтрации.
-                        </td>
-                    </tr>
-                `;
-            return;
-        }
-
-        tbody.innerHTML = pageData.map(reagent => `
-                <tr class="${reagent.status === 'archive' ? 'archived' : ''}">
-                    <td>
-                        <div class="reagent-name">${reagent.name}</div>
-                        ${reagent.status === 'archive' ? '<div class="archive-badge">Архив</div>' : ''}
-                    </td>
-                    <td>${reagent.number}</td>
-                    <td>${reagent.series}</td>
-                    <td>
-                        <div class="batches-info">
-                            <div class="batch-item batch-available">
-                                <span class="batch-value">${reagent.batches.available}</span>
-                                <span class="batch-label">в наличии</span>
-                            </div>
-                            <div class="batch-item batch-writtenoff">
-                                <span class="batch-value">${reagent.batches.writtenOff}</span>
-                                <span class="batch-label">списано</span>
-                            </div>
-                        </div>
-                    </td>
-                    <td>${reagent.room}</td>
-                    <td>
-                        <span class="lab-badge">${reagent.lab}</span>
-                    </td>
-                </tr>
-            `).join('');
-    }
-
-    function updatePagination() {
-        const totalPages = Math.ceil(filteredReagents.length / itemsPerPage);
-        const pageInfo = document.getElementById('pageInfo');
-        const prevBtn = document.getElementById('prevPage');
-        const nextBtn = document.getElementById('nextPage');
-
-        pageInfo.textContent = `Страница ${currentPage} из ${totalPages}`;
-        prevBtn.disabled = currentPage === 1;
-        nextBtn.disabled = currentPage === totalPages || totalPages === 0;
-    }
-
-    function updateStats() {
-        const resultsCount = document.getElementById('resultsCount');
-        resultsCount.textContent = filteredReagents.length;
-    }
-
-    function addReagent() {
-        alert('Функция "Добавить реактив" - в разработке');
-    }
-
-    function showProperties() {
-        alert('Функция "Свойства реактива" - в разработке');
-    }
-
-    function deleteReagent() {
-        if(confirm('Вы уверены, что хотите удалить выбранный реактив?')) {
-            alert('Реактив удален');
-        }
-    }
-
-    function showBatches() {
-        alert('Функция "Партии (Описание)" - в разработке');
-    }
-
-    function archiveReagent() {
-        if(confirm('Переместить выбранный реактив в архив?')) {
-            alert('Реактив перемещен в архив');
-        }
-    }
-
-    function goBack() {
-        window.location.href = 'menu.html';
-    }
-
-    function openSupportModal() {
-        document.getElementById('supportModal').style.display = 'flex';
-    }
-
-    function closeSupportModal() {
-        document.getElementById('supportModal').style.display = 'none';
-    }
-
-    // Инициализация при загрузке
-    document.addEventListener('DOMContentLoaded', function() {
-        initializeData();
-
-        // Мгновенная фильтрация
-        document.getElementById('searchInput').addEventListener('input', applyFilters);
-        document.getElementById('labFilter').addEventListener('change', applyFilters);
-    });
-
-    // Закрытие модального окна
-    window.onclick = function(event) {
-        const modal = document.getElementById('supportModal');
-        if (event.target == modal) {
-            closeSupportModal();
-        }
-    }
-
-    // Обработка формы поддержки
-    document.querySelector('.support-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('Сообщение отправлено в поддержку!');
-        closeSupportModal();
-        this.reset();
-    });
-</script>
+<script src="reagents.js"></script>
 </body>
 </html>

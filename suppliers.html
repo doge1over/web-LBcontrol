@@ -5,6 +5,267 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LBcontrol - Поставщики</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="suppliers.css">
+    <script>
+        // Данные о поставщиках и их продукции
+        const suppliersData = {
+            'himsnab': {
+                name: 'ХимСнаб Плюс',
+                contacts: [
+                    { icon: '📞', text: '+7 (495) 123-45-67' },
+                    { icon: '📧', text: 'info@himsnab.ru' },
+                    { icon: '🏢', text: 'г. Москва, ул. Химическая, д. 15' },
+                    { icon: '⏰', text: 'Срок поставки: 3-5 рабочих дней' }
+                ],
+                products: [
+                    { name: 'Соляная кислота', category: 'Кислоты', code: 'CHEM-001' },
+                    { name: 'Серная кислота', category: 'Кислоты', code: 'CHEM-004' },
+                    { name: 'Азотная кислота', category: 'Кислоты', code: 'CHEM-006' },
+                    { name: 'Гидроксид натрия', category: 'Щелочи', code: 'CHEM-SH-004' },
+                    { name: 'Гидроксид калия', category: 'Щелочи', code: 'CHEM-PH-005' }
+                ]
+            },
+            'labreagents': {
+                name: 'Лабораторные Реактивы',
+                contacts: [
+                    { icon: '📞', text: '+7 (495) 234-56-78' },
+                    { icon: '📧', text: 'sales@labreagents.ru' },
+                    { icon: '🏢', text: 'г. Москва, пр-т Науки, д. 42' },
+                    { icon: '⏰', text: 'Срок поставки: 1-2 рабочих дня' }
+                ],
+                products: [
+                    { name: 'Ацетон', category: 'Растворители', code: 'CHEM-002' },
+                    { name: 'Этанол', category: 'Спирты', code: 'CHEM-003' },
+                    { name: 'Метанол', category: 'Спирты', code: 'CHEM-ME-103' },
+                    { name: 'Изопропанол', category: 'Спирты', code: 'CHEM-IP-104' },
+                    { name: 'Дихлорметан', category: 'Растворители', code: 'CHEM-DC-105' },
+                    { name: 'Толуол', category: 'Растворители', code: 'CHEM-TL-106' }
+                ]
+            },
+            'biohim': {
+                name: 'БиоХим Трейд',
+                contacts: [
+                    { icon: '📞', text: '+7 (495) 345-67-89' },
+                    { icon: '📧', text: 'order@biohim.ru' },
+                    { icon: '🏢', text: 'г. Москва, ул. Биологическая, д. 28' },
+                    { icon: '⏰', text: 'Срок поставки: 5-7 рабочих дней' }
+                ],
+                products: [
+                    { name: 'Перекись водорода', category: 'Окислители', code: 'CHEM-005' },
+                    { name: 'Перманганат калия', category: 'Окислители', code: 'CHEM-PP-202' },
+                    { name: 'Хлорид натрия', category: 'Соли', code: 'CHEM-SC-203' },
+                    { name: 'Сульфат меди', category: 'Соли', code: 'CHEM-CS-204' },
+                    { name: 'Нитрат серебра', category: 'Соли', code: 'CHEM-SN-205' },
+                    { name: 'Карбонат натрия', category: 'Соли', code: 'CHEM-SC-206' }
+                ]
+            }
+        };
+
+        // Функция перехода на страницу партий
+        function goToBatches(reagentName, category, code, supplierId) {
+            // Сохраняем данные о реактиве в localStorage для использования на странице партий
+            const reagentData = {
+                name: reagentName,
+                category: category,
+                code: code,
+                supplier: supplierId,
+                source: 'suppliers'
+            };
+            localStorage.setItem('selectedReagent', JSON.stringify(reagentData));
+
+            // Переходим на страницу партий
+            window.location.href = 'batches.html';
+        }
+
+        // Функция выбора поставщика
+        function selectSupplier(supplierId) {
+            // Убираем выделение у всех строк
+            document.querySelectorAll('#suppliersTableBody tr').forEach(row => {
+                row.classList.remove('selected');
+            });
+
+            // Добавляем выделение выбранной строке
+            event.currentTarget.classList.add('selected');
+
+            const supplier = suppliersData[supplierId];
+
+            // Показываем информацию о поставщике
+            const infoDiv = document.getElementById('selectedSupplierInfo');
+            const titleDiv = document.getElementById('selectedSupplierTitle');
+            const contactsDiv = document.getElementById('selectedSupplierContacts');
+
+            titleDiv.textContent = supplier.name;
+            contactsDiv.innerHTML = supplier.contacts.map(contact => `
+                <div class="contact-item">
+                    <span class="contact-icon">${contact.icon}</span>
+                    <span>${contact.text}</span>
+                </div>
+            `).join('');
+
+            infoDiv.style.display = 'block';
+
+            // Показываем продукцию поставщика
+            showSupplierProducts(supplierId);
+        }
+
+        // Функция отображения продукции поставщика
+        function showSupplierProducts(supplierId) {
+            const supplier = suppliersData[supplierId];
+            const productsTable = document.getElementById('productsTable');
+            const productsTableBody = document.getElementById('productsTableBody');
+            const noSupplierSelected = document.getElementById('noSupplierSelected');
+
+            // Скрываем сообщение "выберите поставщика"
+            noSupplierSelected.style.display = 'none';
+
+            // Заполняем таблицу продукции с добавлением обработчика клика
+            productsTableBody.innerHTML = supplier.products.map(product => `
+                <tr onclick="goToBatches('${product.name}', '${product.category}', '${product.code}', '${supplierId}')">
+                    <td>${product.name}</td>
+                    <td><span class="category-badge">${product.category}</span></td>
+                    <td>${product.code}</td>
+                </tr>
+            `).join('');
+
+            // Показываем таблицу
+            productsTable.style.display = 'table';
+
+            // Добавляем стили для кликабельных строк
+            addProductsTableStyles();
+        }
+
+        // Функция сброса выбора поставщика
+        function resetSupplierSelection() {
+            document.querySelectorAll('#suppliersTableBody tr').forEach(row => {
+                row.classList.remove('selected');
+            });
+
+            document.getElementById('selectedSupplierInfo').style.display = 'none';
+            document.getElementById('productsTable').style.display = 'none';
+            document.getElementById('noSupplierSelected').style.display = 'block';
+        }
+
+        // Добавление стилей для таблицы продукции
+        function addProductsTableStyles() {
+            const rows = document.querySelectorAll('#productsTableBody tr');
+            rows.forEach(row => {
+                row.style.cursor = 'pointer';
+                row.style.transition = 'all 0.3s ease';
+
+                row.addEventListener('mouseenter', function() {
+                    this.style.backgroundColor = 'rgba(26, 167, 236, 0.1)';
+                    this.style.transform = 'translateX(5px)';
+                });
+
+                row.addEventListener('mouseleave', function() {
+                    this.style.backgroundColor = '';
+                    this.style.transform = '';
+                });
+            });
+        }
+
+        // Функция открытия модального окна поддержки
+        function openSupportModal() {
+            const modal = document.getElementById('supportModal');
+            if (modal) {
+                modal.style.display = 'flex';
+            }
+        }
+
+        // Функция закрытия модального окна поддержки
+        function closeSupportModal() {
+            const modal = document.getElementById('supportModal');
+            if (modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Функция возврата назад
+        function goBack() {
+            window.location.href = 'menu.html';
+        }
+
+        // Инициализация при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Обработка поиска поставщиков
+            const searchInput = document.getElementById('supplierSearch');
+            if (searchInput) {
+                searchInput.addEventListener('input', function(e) {
+                    const searchTerm = e.target.value.toLowerCase();
+                    const rows = document.querySelectorAll('#suppliersTableBody tr');
+
+                    rows.forEach(row => {
+                        const supplierName = row.querySelector('.supplier-name').textContent.toLowerCase();
+                        const contactInfo = row.querySelector('.contact-info').textContent.toLowerCase();
+
+                        if (supplierName.includes(searchTerm) || contactInfo.includes(searchTerm)) {
+                            row.style.display = '';
+                        } else {
+                            row.style.display = 'none';
+                            // Если скрываем выбранного поставщика - сбрасываем выбор
+                            if (row.classList.contains('selected')) {
+                                resetSupplierSelection();
+                            }
+                        }
+                    });
+                });
+            }
+
+            // Обработка формы поддержки
+            const supportForm = document.querySelector('.support-form');
+            if (supportForm) {
+                supportForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    alert('Сообщение отправлено в поддержку!');
+                    closeSupportModal();
+                    this.reset();
+                });
+            }
+
+            // Загружаем тему
+            loadTheme();
+        });
+
+        // Функция переключения темы
+        function toggleTheme() {
+            document.body.classList.toggle('night-theme');
+            const button = document.querySelector('.theme-toggle');
+            if (document.body.classList.contains('night-theme')) {
+                button.textContent = '☀️ Дневная тема';
+            } else {
+                button.textContent = '🌙 Ночная тема';
+            }
+
+            // Сохраняем выбор темы в localStorage
+            localStorage.setItem('theme', document.body.classList.contains('night-theme') ? 'dark' : 'light');
+        }
+
+        // Загрузка сохраненной темы
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme');
+            const button = document.querySelector('.theme-toggle');
+
+            if (savedTheme === 'dark') {
+                document.body.classList.add('night-theme');
+                if (button) {
+                    button.textContent = '☀️ Дневная тема';
+                }
+            } else {
+                document.body.classList.remove('night-theme');
+                if (button) {
+                    button.textContent = '🌙 Ночная тема';
+                }
+            }
+        }
+
+        // Закрытие модального окна при клике вне его
+        window.onclick = function(event) {
+            const modal = document.getElementById('supportModal');
+            if (event.target == modal) {
+                closeSupportModal();
+            }
+        }
+    </script>
 </head>
 <body>
 <div class="header">
@@ -24,7 +285,7 @@
             <button class="back-button" onclick="goBack()">
                 ← Назад
             </button>
-            <h1 class="suppliers-title">Управление поставщиками</h1>
+            <h1 class="suppliers-title">Поставщики</h1>
             <button class="support-button" onclick="openSupportModal()">
                 💬 Поддержка
             </button>
@@ -33,72 +294,117 @@
         <!-- Поиск -->
         <div class="search-section">
             <div class="search-group">
-                <label for="searchInput">🔍 Поиск поставщика:</label>
-                <input type="text" id="searchInput" placeholder="Введите название компании, ИНН, контакт..." oninput="searchSuppliers()">
-            </div>
-            <div class="search-stats">
-                Найдено поставщиков: <span id="resultsCount">0</span>
+                <label for="supplierSearch">Поиск поставщиков:</label>
+                <input type="text" id="supplierSearch" placeholder="Введите название поставщика или продукта...">
             </div>
         </div>
 
-        <!-- Основной контент -->
-        <div class="suppliers-content">
-            <!-- Список поставщиков -->
-            <div class="suppliers-list-section">
-                <div class="section-header">
-                    <h2>📋 Список поставщиков</h2>
-                    <button class="add-supplier-btn" onclick="addSupplier()">
-                        ➕ Добавить поставщика
-                    </button>
-                </div>
-                <div class="suppliers-list" id="suppliersList">
-                    <!-- Поставщики будут вставлены через JavaScript -->
-                </div>
-            </div>
-
-            <!-- Информация о поставщике -->
-            <div class="supplier-info-section">
-                <div class="section-header">
-                    <h2>📊 Информация о поставщике</h2>
-                </div>
-                <div class="supplier-info" id="supplierInfo">
-                    <div class="empty-state">
-                        <div class="empty-icon">📦</div>
-                        <p>Выберите поставщика из списка</p>
-                    </div>
-                </div>
-            </div>
+        <!-- Список поставщиков -->
+        <div class="suppliers-table-container">
+            <table class="suppliers-table">
+                <thead>
+                <tr>
+                    <th>Поставщик</th>
+                    <th>Контактная информация</th>
+                </tr>
+                </thead>
+                <tbody id="suppliersTableBody">
+                <tr onclick="selectSupplier('himsnab')">
+                    <td>
+                        <div class="supplier-name">ХимСнаб Плюс</div>
+                    </td>
+                    <td>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <span class="contact-icon">📞</span>
+                                <span>+7 (495) 123-45-67</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📧</span>
+                                <span>info@himsnab.ru</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">🏢</span>
+                                <span>г. Москва, ул. Химическая, д. 15</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr onclick="selectSupplier('labreagents')">
+                    <td>
+                        <div class="supplier-name">Лабораторные Реактивы</div>
+                    </td>
+                    <td>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <span class="contact-icon">📞</span>
+                                <span>+7 (495) 234-56-78</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📧</span>
+                                <span>sales@labreagents.ru</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">🏢</span>
+                                <span>г. Москва, пр-т Науки, д. 42</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr onclick="selectSupplier('biohim')">
+                    <td>
+                        <div class="supplier-name">БиоХим Трейд</div>
+                    </td>
+                    <td>
+                        <div class="contact-info">
+                            <div class="contact-item">
+                                <span class="contact-icon">📞</span>
+                                <span>+7 (495) 345-67-89</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">📧</span>
+                                <span>order@biohim.ru</span>
+                            </div>
+                            <div class="contact-item">
+                                <span class="contact-icon">🏢</span>
+                                <span>г. Москва, ул. Биологическая, д. 28</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
 
-        <!-- Поставляемая продукция -->
+        <!-- Информация о выбранном поставщике -->
+        <div id="selectedSupplierInfo" class="selected-supplier-info" style="display: none;">
+            <div class="selected-supplier-title" id="selectedSupplierTitle"></div>
+            <div class="contact-info" id="selectedSupplierContacts"></div>
+        </div>
+
+        <!-- Секция продукции -->
         <div class="products-section">
-            <div class="section-header">
-                <h2>🧪 Поставляемая продукция</h2>
-                <button class="add-product-btn" onclick="addProduct()" disabled id="addProductBtn">
-                    ➕ Добавить продукт
-                </button>
-            </div>
-            <div class="products-container" id="productsContainer">
-                <div class="empty-state">
-                    <div class="empty-icon">🔬</div>
-                    <p>Выберите поставщика для просмотра продукции</p>
+            <div class="section-title">Поставляемая продукция</div>
+            <div class="products-list-container">
+                <div id="noSupplierSelected" class="no-supplier-selected">
+                    Выберите поставщика из таблицы для просмотра продукции
                 </div>
+                <table id="productsTable" class="products-table" style="display: none;">
+                    <thead>
+                    <tr>
+                        <th>Реактив</th>
+                        <th>Категория</th>
+                        <th>Код продукта</th>
+                    </tr>
+                    </thead>
+                    <tbody id="productsTableBody">
+                    <!-- Данные будут заполняться через JavaScript -->
+                    </tbody>
+                </table>
             </div>
-        </div>
-
-        <!-- Кнопки управления -->
-        <div class="action-buttons">
-            <button class="action-btn edit-btn" onclick="editSupplier()" id="editBtn" disabled>
-                ✏️ Редактировать
-            </button>
-            <button class="action-btn delete-btn" onclick="deleteSupplier()" id="deleteBtn" disabled>
-                🗑️ Удалить поставщика
-            </button>
-            <button class="action-btn back-btn" onclick="goBack()">
-                ↩️ Назад в меню
-            </button>
         </div>
     </div>
+</div>
 </div>
 
 <!-- Модальное окно поддержки -->
@@ -120,9 +426,9 @@
                     <select id="supportLocation" required>
                         <option value="">Выберите раздел</option>
                         <option value="suppliers" selected>🚚 Поставщики</option>
-                        <option value="reagents">🧪 Таблица учета реактивов</option>
-                        <option value="history">📊 История действий</option>
                         <option value="notifications">📢 Оповещения</option>
+                        <option value="history">📊 История действий</option>
+                        <option value="reagents">🧪 Таблица учета реактивов</option>
                         <option value="admin">⚙️ Администрирование</option>
                         <option value="other">❓ Другое</option>
                     </select>
@@ -150,325 +456,5 @@
 <div class="footer">
     <p>© 2024 LBcontrol. Все права защищены.</p>
 </div>
-
-<script src="script.js"></script>
-<script>
-    let suppliers = [];
-    let filteredSuppliers = [];
-    let selectedSupplier = null;
-
-    // Инициализация тестовых данных
-    function initializeData() {
-        suppliers = [
-            {
-                id: 'SUP-001',
-                name: 'ХимПром Москва',
-                inn: '7701234567',
-                contact: 'Иванов Петр Сергеевич',
-                phone: '+7 (495) 123-45-67',
-                email: 'info@himprom.ru',
-                address: 'г. Москва, ул. Ленина, д. 10',
-                rating: 5,
-                deliveryTime: '3-5 дней',
-                products: [
-                    { name: 'Соляная кислота', code: 'HCl-99', price: '450 руб/л', availability: 'В наличии' },
-                    { name: 'Серная кислота', code: 'H2SO4-96', price: '520 руб/л', availability: 'В наличии' },
-                    { name: 'Азотная кислота', code: 'HNO3-65', price: '680 руб/л', availability: 'Под заказ' }
-                ]
-            },
-            {
-                id: 'SUP-002',
-                name: 'Реактив Снабжение',
-                inn: '7702345678',
-                contact: 'Смирнова Анна Ивановна',
-                phone: '+7 (495) 234-56-78',
-                email: 'sales@reaktiv-snab.ru',
-                address: 'г. Санкт-Петербург, пр. Невский, д. 25',
-                rating: 4,
-                deliveryTime: '5-7 дней',
-                products: [
-                    { name: 'Ацетон', code: 'ACE-99', price: '320 руб/л', availability: 'В наличии' },
-                    { name: 'Этанол', code: 'ETH-96', price: '280 руб/л', availability: 'В наличии' },
-                    { name: 'Метанол', code: 'METH-99', price: '310 руб/л', availability: 'В наличии' }
-                ]
-            },
-            {
-                id: 'SUP-003',
-                name: 'ЛабКомплект',
-                inn: '7703456789',
-                contact: 'Петров Дмитрий Александрович',
-                phone: '+7 (495) 345-67-89',
-                email: 'order@labkomplekt.ru',
-                address: 'г. Екатеринбург, ул. Малышева, д. 50',
-                rating: 5,
-                deliveryTime: '2-4 дня',
-                products: [
-                    { name: 'Перекись водорода', code: 'H2O2-30', price: '180 руб/л', availability: 'В наличии' },
-                    { name: 'Изопропанол', code: 'IPA-99', price: '340 руб/л', availability: 'В наличии' },
-                    { name: 'Гексан', code: 'HEX-95', price: '420 руб/л', availability: 'Под заказ' }
-                ]
-            },
-            {
-                id: 'SUP-004',
-                name: 'Химреактивы России',
-                inn: '7704567890',
-                contact: 'Волкова Екатерина Михайловна',
-                phone: '+7 (495) 456-78-90',
-                email: 'contact@himreaktiv.ru',
-                address: 'г. Новосибирск, ул. Красный проспект, д. 100',
-                rating: 4,
-                deliveryTime: '7-10 дней',
-                products: [
-                    { name: 'Толуол', code: 'TOL-99', price: '380 руб/л', availability: 'В наличии' },
-                    { name: 'Дихлорметан', code: 'DCM-99', price: '460 руб/л', availability: 'В наличии' },
-                    { name: 'Ацетонитрил', code: 'ACN-99', price: '720 руб/л', availability: 'Под заказ' }
-                ]
-            },
-            {
-                id: 'SUP-005',
-                name: 'ЭкоЛаб Поставки',
-                inn: '7705678901',
-                contact: 'Соколов Михаил Владимирович',
-                phone: '+7 (495) 567-89-01',
-                email: 'info@ecolab-supply.ru',
-                address: 'г. Казань, ул. Баумана, д. 15',
-                rating: 3,
-                deliveryTime: '5-8 дней',
-                products: [
-                    { name: 'Формальдегид', code: 'FORM-37', price: '290 руб/л', availability: 'В наличии' },
-                    { name: 'Аммиак', code: 'NH3-25', price: '210 руб/л', availability: 'В наличии' }
-                ]
-            }
-        ];
-
-        filteredSuppliers = [...suppliers];
-        renderSuppliersList();
-        updateStats();
-    }
-
-    function searchSuppliers() {
-        const searchTerm = document.getElementById('searchInput').value.toLowerCase();
-
-        filteredSuppliers = suppliers.filter(supplier => {
-            const searchable = `${supplier.name} ${supplier.inn} ${supplier.contact} ${supplier.phone} ${supplier.email}`.toLowerCase();
-            return searchable.includes(searchTerm);
-        });
-
-        renderSuppliersList();
-        updateStats();
-    }
-
-    function renderSuppliersList() {
-        const listContainer = document.getElementById('suppliersList');
-
-        if (filteredSuppliers.length === 0) {
-            listContainer.innerHTML = `
-                <div class="empty-state">
-                    <div class="empty-icon">🔍</div>
-                    <p>Поставщики не найдены</p>
-                </div>
-            `;
-            return;
-        }
-
-        listContainer.innerHTML = filteredSuppliers.map(supplier => `
-            <div class="supplier-card ${selectedSupplier?.id === supplier.id ? 'active' : ''}" onclick="selectSupplier('${supplier.id}')">
-                <div class="supplier-card-header">
-                    <h3 class="supplier-name">${supplier.name}</h3>
-                    <div class="supplier-rating">${'⭐'.repeat(supplier.rating)}</div>
-                </div>
-                <div class="supplier-card-body">
-                    <div class="supplier-detail">
-                        <span class="detail-icon">🏢</span>
-                        <span>ИНН: ${supplier.inn}</span>
-                    </div>
-                    <div class="supplier-detail">
-                        <span class="detail-icon">👤</span>
-                        <span>${supplier.contact}</span>
-                    </div>
-                    <div class="supplier-detail">
-                        <span class="detail-icon">📞</span>
-                        <span>${supplier.phone}</span>
-                    </div>
-                    <div class="supplier-detail">
-                        <span class="detail-icon">🚚</span>
-                        <span>Доставка: ${supplier.deliveryTime}</span>
-                    </div>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    function selectSupplier(supplierId) {
-        selectedSupplier = suppliers.find(s => s.id === supplierId);
-        renderSupplierInfo();
-        renderProducts();
-        renderSuppliersList(); // Перерисовываем список для подсветки
-
-        // Активируем кнопки
-        document.getElementById('editBtn').disabled = false;
-        document.getElementById('deleteBtn').disabled = false;
-        document.getElementById('addProductBtn').disabled = false;
-    }
-
-    function renderSupplierInfo() {
-        const infoContainer = document.getElementById('supplierInfo');
-
-        if (!selectedSupplier) {
-            infoContainer.innerHTML = `
-                <div class="empty-state">
-                    <div class="empty-icon">📦</div>
-                    <p>Выберите поставщика из списка</p>
-                </div>
-            `;
-            return;
-        }
-
-        infoContainer.innerHTML = `
-            <div class="info-grid">
-                <div class="info-item">
-                    <div class="info-label">Название компании</div>
-                    <div class="info-value">${selectedSupplier.name}</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">ИНН</div>
-                    <div class="info-value">${selectedSupplier.inn}</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Контактное лицо</div>
-                    <div class="info-value">${selectedSupplier.contact}</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Телефон</div>
-                    <div class="info-value">${selectedSupplier.phone}</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Email</div>
-                    <div class="info-value">${selectedSupplier.email}</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Адрес</div>
-                    <div class="info-value">${selectedSupplier.address}</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Рейтинг</div>
-                    <div class="info-value">${'⭐'.repeat(selectedSupplier.rating)} (${selectedSupplier.rating}/5)</div>
-                </div>
-                <div class="info-item">
-                    <div class="info-label">Срок доставки</div>
-                    <div class="info-value">${selectedSupplier.deliveryTime}</div>
-                </div>
-            </div>
-        `;
-    }
-
-    function renderProducts() {
-        const productsContainer = document.getElementById('productsContainer');
-
-        if (!selectedSupplier || selectedSupplier.products.length === 0) {
-            productsContainer.innerHTML = `
-                <div class="empty-state">
-                    <div class="empty-icon">🔬</div>
-                    <p>Нет данных о поставляемой продукции</p>
-                </div>
-            `;
-            return;
-        }
-
-        productsContainer.innerHTML = `
-            <div class="products-table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Название продукта</th>
-                            <th>Код</th>
-                            <th>Цена</th>
-                            <th>Наличие</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${selectedSupplier.products.map(product => `
-                            <tr>
-                                <td><strong>${product.name}</strong></td>
-                                <td>${product.code}</td>
-                                <td>${product.price}</td>
-                                <td>
-                                    <span class="availability-badge ${product.availability === 'В наличии' ? 'available' : 'on-order'}">
-                                        ${product.availability}
-                                    </span>
-                                </td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
-            </div>
-        `;
-    }
-
-    function updateStats() {
-        document.getElementById('resultsCount').textContent = filteredSuppliers.length;
-    }
-
-    function addSupplier() {
-        alert('Функция "Добавить поставщика" - в разработке');
-    }
-
-    function editSupplier() {
-        if (selectedSupplier) {
-            alert(`Редактирование поставщика: ${selectedSupplier.name} - в разработке`);
-        }
-    }
-
-    function deleteSupplier() {
-        if (selectedSupplier && confirm(`Вы уверены, что хотите удалить поставщика "${selectedSupplier.name}"?`)) {
-            alert('Поставщик удален');
-            selectedSupplier = null;
-            renderSupplierInfo();
-            renderProducts();
-            document.getElementById('editBtn').disabled = true;
-            document.getElementById('deleteBtn').disabled = true;
-            document.getElementById('addProductBtn').disabled = true;
-        }
-    }
-
-    function addProduct() {
-        if (selectedSupplier) {
-            alert(`Добавление продукта для поставщика "${selectedSupplier.name}" - в разработке`);
-        }
-    }
-
-    function goBack() {
-        window.location.href = 'menu.html';
-    }
-
-    function openSupportModal() {
-        document.getElementById('supportModal').style.display = 'flex';
-    }
-
-    function closeSupportModal() {
-        document.getElementById('supportModal').style.display = 'none';
-    }
-
-    // Инициализация при загрузке
-    document.addEventListener('DOMContentLoaded', function() {
-        initializeData();
-    });
-
-    // Закрытие модального окна при клике вне его
-    window.onclick = function(event) {
-        const modal = document.getElementById('supportModal');
-        if (event.target == modal) {
-            closeSupportModal();
-        }
-    }
-
-    // Обработка формы поддержки
-    document.querySelector('.support-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        alert('Сообщение отправлено в поддержку!');
-        closeSupportModal();
-        this.reset();
-    });
-</script>
 </body>
 </html>

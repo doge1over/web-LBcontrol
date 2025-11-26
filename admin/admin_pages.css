@@ -1,0 +1,985 @@
+/* Стили для отдельных страниц администрирования */
+.admin-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 1400px;
+}
+
+.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.admin-title {
+    font-size: 32px;
+    color: #ffffff;
+    font-weight: bold;
+    margin: 0;
+    flex: 1;
+    text-align: center;
+}
+
+.back-button {
+    padding: 12px 20px;
+    background: #4a5568;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.back-button:hover {
+    background: #2d3748;
+    transform: translateY(-2px);
+}
+
+.support-button {
+    padding: 12px 20px;
+    background: #4a5568;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+}
+
+.support-button:hover {
+    background: #2d3748;
+    transform: translateY(-2px);
+}
+
+/* Секция поиска */
+.search-section {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.filter-row {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+    flex-wrap: wrap;
+}
+
+.search-group-with-clear {
+    flex: 2;
+    min-width: 300px;
+}
+
+.filter-group {
+    flex: 1;
+    min-width: 200px;
+}
+
+.search-group-with-clear label,
+.filter-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.search-input-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input-container input {
+    width: 100%;
+    padding: 12px 15px;
+    padding-right: 40px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1E2F97;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.search-input-container input:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.5);
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1);
+}
+
+.clear-search-btn {
+    position: absolute;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #7f8c8d;
+    cursor: pointer;
+    padding: 0;
+    width: 24px;
+    height: 24px;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+}
+
+.clear-search-btn:hover {
+    background: rgba(231, 76, 60, 0.1);
+    color: #e74c3c;
+    transform: scale(1.1);
+}
+
+.clear-search-btn.show {
+    display: flex;
+}
+
+.filter-group select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1E2F97;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.filter-group select:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.5);
+    background: #ffffff;
+}
+
+/* Стили для статистики */
+.stats-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.stat-card:hover {
+    background: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.stat-icon {
+    font-size: 32px;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.stat-info {
+    flex: 1;
+}
+
+.stat-value {
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 5px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.stat-label {
+    font-size: 14px;
+    color: #cccccc;
+    font-weight: 500;
+}
+
+/* Кнопки действий */
+.action-buttons-section {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    padding: 14px 25px;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+/* ЗЕЛЕНАЯ кнопка добавления */
+.add-btn {
+    background: linear-gradient(145deg, #27ae60 0%, #219a52 100%);
+    color: white;
+    border: 1px solid rgba(39, 174, 96, 0.5);
+}
+
+.add-btn:hover {
+    background: linear-gradient(145deg, #219a52 0%, #1e8449 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+}
+
+/* Секция таблицы */
+.table-section {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 15px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.section-header h2 {
+    color: #ffffff;
+    font-size: 20px;
+    margin: 0;
+    flex: 1;
+}
+
+.search-results-info {
+    color: #cccccc;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 8px 12px;
+    border-radius: 8px;
+    white-space: nowrap;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.search-results-info span {
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Таблицы */
+.table-container {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.admin-table th {
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    padding: 15px 12px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 14px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+.admin-table td {
+    padding: 12px;
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.02);
+    transition: all 0.3s ease;
+}
+
+.admin-table tbody tr {
+    transition: all 0.3s ease;
+}
+
+.admin-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.admin-table tbody tr:hover td {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Информация о лаборатории */
+.lab-info .lab-name {
+    font-weight: bold;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+/* Номер помещения */
+.location-info .room-number {
+    font-size: 16px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+/* Кнопки действий в таблице */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 120px;
+}
+
+.action-btn-small {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-align: left;
+}
+
+.action-btn-small .btn-icon {
+    font-size: 12px;
+    width: 14px;
+    text-align: center;
+}
+
+.action-btn-small .btn-text {
+    flex: 1;
+}
+
+/* ОРАНЖЕВАЯ кнопка редактирования */
+.edit-btn {
+    background: linear-gradient(145deg, #e67e22 0%, #d35400 100%);
+    color: white;
+    border: 1px solid rgba(230, 126, 34, 0.5);
+}
+
+.edit-btn:hover {
+    background: linear-gradient(145deg, #d35400 0%, #a93226 100%);
+    box-shadow: 0 3px 10px rgba(230, 126, 34, 0.4);
+}
+
+.delete-btn {
+    background: #e53e3e;
+    color: white;
+}
+
+.delete-btn:hover {
+    background: #c53030;
+}
+
+.staff-btn-small {
+    background: #38a169;
+    color: white;
+}
+
+.staff-btn-small:hover {
+    background: #2f855a;
+}
+
+.products-btn {
+    background: #805ad5;
+    color: white;
+}
+
+.products-btn:hover {
+    background: #6b46c1;
+}
+
+/* Модальные окна */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.modal-header h2 {
+    color: #ffffff;
+    margin: 0;
+}
+
+.close {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #cccccc;
+}
+
+/* Формы */
+.edit-form .form-group {
+    margin-bottom: 20px;
+}
+
+.edit-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.edit-form input,
+.edit-form select,
+.edit-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1E2F97;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.edit-form input:focus,
+.edit-form select:focus,
+.edit-form textarea:focus {
+    outline: none;
+    border-color: rgba(255, 255, 255, 0.5);
+    background: #ffffff;
+}
+
+.support-form .form-group {
+    margin-bottom: 20px;
+}
+
+.support-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.support-form input,
+.support-form select,
+.support-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1E2F97;
+    font-size: 14px;
+}
+
+.support-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+    margin-top: 25px;
+}
+
+.cancel-button {
+    padding: 12px 25px;
+    background: #4a5568;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cancel-button:hover {
+    background: #2d3748;
+}
+
+/* ЗЕЛЕНАЯ кнопка отправки формы */
+.submit-button {
+    padding: 12px 25px;
+    background: linear-gradient(145deg, #27ae60 0%, #219a52 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(39, 174, 96, 0.5);
+}
+
+.submit-button:hover {
+    background: linear-gradient(145deg, #219a52 0%, #1e8449 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
+}
+
+/* Бейджи статусов */
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status-active {
+    background: #38a169;
+    color: white;
+}
+
+.status-inactive {
+    background: #718096;
+    color: white;
+}
+
+/* Стили для кнопки "Назад к лабораториям" */
+.back-btn {
+    background: #4a5568;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.back-btn:hover {
+    background: #2d3748;
+    transform: translateY(-2px);
+}
+
+/* Стили для секции действий персонала */
+.staff-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Адаптивность для кнопок персонала */
+@media (max-width: 768px) {
+    .staff-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .back-btn {
+        justify-content: center;
+    }
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+    .admin-container {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    .filter-row {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .search-group-with-clear,
+    .filter-group {
+        min-width: auto;
+        width: 100%;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .admin-table {
+        min-width: 600px;
+    }
+
+    .stats-section {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .admin-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .admin-title {
+        font-size: 28px;
+    }
+
+    .section-header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .action-buttons-section {
+        justify-content: center;
+    }
+
+    .action-btn {
+        padding: 12px 20px;
+        font-size: 13px;
+    }
+
+    .stats-section {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-card {
+        padding: 15px;
+    }
+
+    .stat-icon {
+        font-size: 24px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .stat-value {
+        font-size: 20px;
+    }
+
+    .action-buttons {
+        min-width: 100px;
+    }
+
+    .action-btn-small {
+        padding: 5px 8px;
+        font-size: 11px;
+        gap: 3px;
+    }
+
+    .action-btn-small .btn-icon {
+        font-size: 10px;
+        width: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .admin-container {
+        padding: 15px;
+    }
+
+    .admin-title {
+        font-size: 24px;
+    }
+
+    .search-section {
+        padding: 20px;
+    }
+
+    .table-section {
+        padding: 20px;
+    }
+
+    .modal-content {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    .form-buttons {
+        flex-direction: column;
+    }
+
+    .cancel-button,
+    .submit-button {
+        width: 100%;
+    }
+}
+
+/* Анимации для кнопок */
+@keyframes pulse-green {
+    0% {
+        box-shadow: 0 0 0 0 rgba(39, 174, 96, 0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(39, 174, 96, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(39, 174, 96, 0);
+    }
+}
+
+.add-btn.pulse {
+    animation: pulse-green 2s infinite;
+}
+
+/* Отключенные состояния кнопок */
+.add-btn:disabled,
+.edit-btn:disabled,
+.submit-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+    transform: none !important;
+}
+
+.add-btn:disabled:hover,
+.edit-btn:disabled:hover,
+.submit-button:disabled:hover {
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+
+/* Стили для форм редактирования и поддержки */
+.edit-form .form-group {
+    margin-bottom: 20px;
+}
+
+.edit-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.edit-form input,
+.edit-form select,
+.edit-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1E2F97;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.edit-form input:focus,
+.edit-form select:focus,
+.edit-form textarea:focus {
+    outline: none;
+    border-color: #1AA7EC;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(26, 167, 236, 0.2);
+}
+
+.support-form .form-group {
+    margin-bottom: 20px;
+}
+
+.support-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.support-form input,
+.support-form select,
+.support-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1E2F97;
+    font-size: 14px;
+}
+
+.support-form textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Кнопки форм */
+.form-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-start;
+    margin-top: 25px;
+}
+
+.cancel-button {
+    padding: 12px 25px;
+    background: #95a5a6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cancel-button:hover {
+    background: #7f8c8d;
+    transform: translateY(-2px);
+}
+
+.submit-button {
+    padding: 12px 25px;
+    background: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-button:hover {
+    background: #219a52;
+    transform: translateY(-2px);
+}
+
+/* Модальные окна */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: linear-gradient(135deg, #1E2F97 0%, #1AA7EC 100%);
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.modal-header h2 {
+    color: #ffffff;
+    margin: 0;
+}
+
+.close {
+    color: #ffffff;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close:hover {
+    color: #1AA7EC;
+}
+
+/* Адаптивность для форм */
+@media (max-width: 768px) {
+    .modal-content {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    .form-buttons {
+        flex-direction: column;
+    }
+
+    .cancel-button,
+    .submit-button {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .modal-content {
+        padding: 15px;
+    }
+
+    .edit-form input,
+    .edit-form select,
+    .support-form input,
+    .support-form select,
+    .support-form textarea {
+        padding: 10px;
+        font-size: 13px;
+    }
+}
