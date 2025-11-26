@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LBcontrol - Администрирование</title>
+    <link rel="stylesheet" href="admin_dashboard.css">
+</head>
+<body>
+<div class="header">
+    <div class="logo-container">
+        <img src="../../image/logo.png" alt="LBcontrol Logo" class="logo">
+        <div class="company-name">LBcontrol</div>
+    </div>
+    <button class="theme-toggle" id="themeToggle">
+        🌙 Ночная тема
+    </button>
+</div>
+
+<div class="main-container">
+    <div class="menu-with-info">
+        <!-- Левая часть - информация пользователя -->
+        <div class="info-section">
+            <div class="user-info-sidebar">
+                <h2 class="welcome-title">Панель администратора</h2>
+
+                <div class="user-details">
+                    <div class="detail-item">
+                        <span class="detail-label">Логин:</span>
+                        <span class="detail-value">admin</span>
+                    </div>
+
+                    <div class="detail-item">
+                        <span class="detail-label">Ваша Лаборатория:</span>
+                        <span class="detail-value">Химическая лаборатория №1</span>
+                    </div>
+
+                    <div class="detail-item">
+                        <span class="detail-label">Права доступа:</span>
+                        <span class="detail-value">Администратор</span>
+                    </div>
+                </div>
+
+                <a href="../menu.html" class="logout-sidebar-btn" style="text-decoration: none; display: block;">
+                    📋 Вернуться в меню
+                </a>
+            </div>
+        </div>
+
+        <!-- Правая часть - меню администрирования -->
+        <div class="menu-section">
+            <h1 class="menu-title">Администрирование системы</h1>
+
+            <div class="menu-grid">
+                <!-- Пользователи -->
+                <a href="users/users_admin.html" class="menu-card" style="text-decoration: none; display: block;">
+                    <div class="menu-icon">👥</div>
+                    <h3 class="menu-title">Пользователи</h3>
+                    <p class="menu-description">Управление учетными записями, ролями и правами доступа сотрудников</p>
+                </a>
+
+                <!-- Лаборатории -->
+                <a href="labs/labs_admin.html" class="menu-card" style="text-decoration: none; display: block;">
+                    <div class="menu-icon">🔬</div>
+                    <h3 class="menu-title">Лаборатории</h3>
+                    <p class="menu-description">Управление лабораторными помещениями и их оборудованием</p>
+                </a>
+
+                <!-- Производители -->
+                <a href="manufacturers/manufacturers_admin.html" class="menu-card" style="text-decoration: none; display: block;">
+                    <div class="menu-icon">🏭</div>
+                    <h3 class="menu-title">Производители</h3>
+                    <p class="menu-description">База данных производителей оборудования и реагентов</p>
+                </a>
+
+                <!-- Поставщики -->
+                <a href="suppliers/admin_suppliers.html" class="menu-card" style="text-decoration: none; display: block;">
+                    <div class="menu-icon">🚚</div>
+                    <h3 class="menu-title">Поставщики</h3>
+                    <p class="menu-description">Управление поставщиками оборудования и материалов</p>
+                </a>
+
+                <!-- Помещения -->
+                <a href="rooms/rooms_admin.html" class="menu-card" style="text-decoration: none; display: block;">
+                    <div class="menu-icon">🏢</div>
+                    <h3 class="menu-title">Помещения</h3>
+                    <p class="menu-description">Учет и управление лабораторными помещениями</p>
+                </a>
+
+                <!-- Единицы измерения -->
+                <a href="units/units_admin.html" class="menu-card" style="text-decoration: none; display: block;">
+                    <div class="menu-icon">📏</div>
+                    <h3 class="menu-title">Единицы измерения</h3>
+                    <p class="menu-description">Система единиц измерения и их конвертация</p>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <p>© 2024 LBcontrol. Все права защищены.</p>
+</div>
+
+<script src="admin_dashboard.js"></script>
+</body>
+</html>

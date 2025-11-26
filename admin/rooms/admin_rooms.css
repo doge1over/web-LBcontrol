@@ -1,0 +1,79 @@
+/* Стили для страницы управления помещениями */
+
+/* Контейнер помещения */
+.room-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.room-number {
+    font-weight: bold;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+/* Название помещения */
+.room-name {
+    font-weight: bold;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+/* Адаптивность для помещений */
+@media (max-width: 768px) {
+    .room-number,
+    .room-name {
+        font-size: 14px;
+    }
+}
+
+/* Стили для пустых состояний */
+.no-rooms {
+    text-align: center;
+    padding: 40px 20px;
+    color: #cccccc;
+    font-style: italic;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 8px;
+    margin-top: 15px;
+}
+
+/* Стили для модального окна помещений */
+.room-form .form-group {
+    margin-bottom: 20px;
+}
+
+.room-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.room-form input,
+.room-form select,
+.room-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1E2F97;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.room-form input:focus,
+.room-form select:focus,
+.room-form textarea:focus {
+    outline: none;
+    border-color: #1AA7EC;
+    background: #ffffff;
+}
+
+.room-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}

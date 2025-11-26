@@ -1,10 +1,43 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LBcontrol - Вход в систему</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-$END$
+<div class="header">
+  <div class="logo-container">
+    <img src="image/logo.png" alt="LBcontrol Logo" class="logo">
+    <div class="company-name">LBcontrol</div>
+  </div>
+  <button class="theme-toggle" onclick="toggleTheme()">
+    🌙 Ночная тема
+  </button>
+</div>
+
+<div class="main-container">
+  <div class="login-container">
+    <h1 class="login-title">Вход</h1>
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="login">Логин</label>
+        <input type="text" id="login" name="login" placeholder="Введите ваш логин" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Пароль</label>
+        <input type="password" id="password" name="password" placeholder="Введите ваш пароль" required>
+      </div>
+      <button type="submit" class="login-button">Войти</button>
+    </form>
+  </div>
+</div>
+
+<div class="footer">
+  <p>© 2024 LBcontrol. Все права защищены.</p>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>

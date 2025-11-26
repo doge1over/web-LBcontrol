@@ -1,0 +1,220 @@
+/* Стили для страницы управления поставщиками */
+
+/* Контейнер поставщика */
+.supplier-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.supplier-name {
+    font-weight: bold;
+    font-size: 16px;
+    color: #ffffff;
+}
+
+/* Контактная информация поставщика */
+.supplier-contact {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.contact-phone {
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.contact-email {
+    font-size: 13px;
+    color: #ffffff;
+}
+
+.contact-website {
+    font-size: 13px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.contact-website:hover {
+    text-decoration: underline;
+}
+
+/* Кнопки действий для поставщиков */
+.products-btn {
+    background: #9b59b6;
+    color: white;
+}
+
+.products-btn:hover {
+    background: #8e44ad;
+    transform: translateX(2px);
+}
+
+/* Секция продукции поставщика */
+.products-section {
+    margin-top: 30px;
+    animation: fadeIn 0.3s ease;
+}
+
+.products-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.products-title {
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: bold;
+    margin: 0;
+}
+
+.products-actions {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Стили для таблицы продукции */
+.products-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.02);
+    margin-top: 10px;
+}
+
+.products-table th {
+    background: rgba(155, 89, 182, 0.3);
+    color: white;
+    padding: 12px 10px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 13px;
+    border-bottom: 2px solid #9b59b6;
+}
+
+.products-table td {
+    padding: 10px;
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 13px;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.products-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+    transition: all 0.3s ease;
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.products-section {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Ховер эффекты */
+.supplier-contact a:hover {
+    color: #9b59b6;
+}
+
+.products-table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.products-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateX(2px);
+}
+
+/* Стили для модального окна поставщиков */
+.supplier-form .form-group {
+    margin-bottom: 20px;
+}
+
+.supplier-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.supplier-form input,
+.supplier-form select,
+.supplier-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1E2F97;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.supplier-form input:focus,
+.supplier-form select:focus,
+.supplier-form textarea:focus {
+    outline: none;
+    border-color: #1AA7EC;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(26, 167, 236, 0.2);
+}
+
+.supplier-form textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* Адаптивность для поставщиков */
+@media (max-width: 1024px) {
+    .supplier-info,
+    .supplier-contact {
+        min-width: 150px;
+    }
+}
+
+@media (max-width: 768px) {
+    .supplier-name {
+        font-size: 14px;
+    }
+
+    .contact-phone,
+    .contact-email,
+    .contact-website {
+        font-size: 12px;
+    }
+
+    .products-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .products-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 480px) {
+    .supplier-info,
+    .supplier-contact {
+        min-width: 120px;
+    }
+}

@@ -1,0 +1,406 @@
+/* Стили для страницы партий реактивов */
+.batches-container {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(15px);
+    padding: 30px;
+    border-radius: 25px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 1400px;
+}
+
+.batches-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.batches-title {
+    font-size: 32px;
+    color: #ffffff;
+    font-weight: bold;
+    margin: 0;
+}
+
+/* Секция информации о реактиве */
+.reagent-info-section {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 15px;
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #1AA7EC;
+}
+
+.reagent-properties {
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+.property-group {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    flex: 1;
+    min-width: 250px;
+}
+
+.property-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    border-left: 4px solid #1AA7EC;
+}
+
+.property-item label {
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.property-item span {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+/* Кнопки управления */
+.action-buttons {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin: 25px 0;
+    flex-wrap: wrap;
+}
+
+.action-btn {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 140px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.add-btn {
+    background: linear-gradient(145deg, #27ae60 0%, #219a52 30%, #1e8449 100%);
+    color: white;
+    border: 1px solid rgba(39, 174, 96, 0.5);
+}
+
+.add-btn:hover {
+    background: linear-gradient(145deg, #219a52 0%, #1e8449 30%, #196f3d 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(39, 174, 96, 0.5);
+    border-color: rgba(39, 174, 96, 0.8);
+}
+
+.edit-btn {
+    background: linear-gradient(145deg, #3498db 0%, #2980b9 30%, #2471a3 100%);
+    color: white;
+    border: 1px solid rgba(52, 152, 219, 0.5);
+}
+
+.edit-btn:hover {
+    background: linear-gradient(145deg, #2980b9 0%, #2471a3 30%, #1f618d 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(52, 152, 219, 0.5);
+    border-color: rgba(52, 152, 219, 0.8);
+}
+
+.delete-btn {
+    background: linear-gradient(145deg, #e74c3c 0%, #c0392b 40%, #a93226 100%);
+    color: white;
+    border: 1px solid rgba(231, 76, 60, 0.5);
+}
+
+.delete-btn:hover {
+    background: linear-gradient(145deg, #c0392b 0%, #a93226 40%, #922b21 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(231, 76, 60, 0.5);
+    border-color: rgba(231, 76, 60, 0.8);
+}
+
+/* Таблица партий */
+.table-container {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.batches-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.batches-table th {
+    background: rgba(26, 167, 236, 0.3);
+    color: white;
+    padding: 15px 12px;
+    text-align: left;
+    font-weight: bold;
+    font-size: 14px;
+    border-bottom: 2px solid #1AA7EC;
+    border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.batches-table th:last-child {
+    border-right: none;
+}
+
+.batches-table td {
+    padding: 12px;
+    color: #ffffff;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.02);
+    border-right: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.batches-table td:last-child {
+    border-right: none;
+}
+
+.batches-table tr:last-child td {
+    border-bottom: none;
+}
+
+.batches-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.batches-table tbody tr.selected {
+    background: rgba(26, 167, 236, 0.2);
+    border-left: 4px solid #1AA7EC;
+}
+
+/* Детальная информация о выбранной партии */
+.selected-batch-info {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 15px;
+    margin-top: 20px;
+    border-left: 4px solid #27ae60;
+}
+
+.batch-details-header {
+    margin-bottom: 20px;
+}
+
+.batch-details-header h3 {
+    color: #ffffff;
+    font-size: 18px;
+    margin: 0;
+}
+
+.batch-details-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.detail-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+    border-left: 3px solid #9b59b6;
+}
+
+.detail-item label {
+    font-weight: bold;
+    color: #ffffff;
+    font-size: 13px;
+}
+
+.detail-item span {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.batch-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.writeoff-btn {
+    background: linear-gradient(145deg, #e67e22 0%, #d35400 30%, #ba4a00 100%);
+    color: white;
+    border: 1px solid rgba(230, 126, 34, 0.5);
+}
+
+.writeoff-btn:hover {
+    background: linear-gradient(145deg, #d35400 0%, #ba4a00 30%, #a04000 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(230, 126, 34, 0.5);
+    border-color: rgba(230, 126, 34, 0.8);
+}
+
+.archive-btn {
+    background: linear-gradient(145deg, #9b59b6 0%, #8e44ad 30%, #7d3c98 100%);
+    color: white;
+    border: 1px solid rgba(155, 89, 182, 0.5);
+}
+
+.archive-btn:hover {
+    background: linear-gradient(145deg, #8e44ad 0%, #7d3c98 30%, #6c3483 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(155, 89, 182, 0.5);
+    border-color: rgba(155, 89, 182, 0.8);
+}
+
+.documents-btn {
+    background: linear-gradient(145deg, #34495e 0%, #2c3e50 30%, #243342 100%);
+    color: white;
+    border: 1px solid rgba(52, 73, 94, 0.5);
+}
+
+.documents-btn:hover {
+    background: linear-gradient(145deg, #2c3e50 0%, #243342 30%, #1c2833 100%);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(52, 73, 94, 0.5);
+    border-color: rgba(52, 73, 94, 0.8);
+}
+
+/* Бейджи статусов */
+.status-badge {
+    padding: 4px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: bold;
+    display: inline-block;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.status-available {
+    background: linear-gradient(145deg, #27ae60 0%, #219a52 100%);
+}
+
+.status-expiring {
+    background: linear-gradient(145deg, #f39c12 0%, #e67e22 100%);
+}
+
+.status-expired {
+    background: linear-gradient(145deg, #e74c3c 0%, #c0392b 100%);
+}
+
+/* Адаптивность для партий */
+@media (max-width: 1024px) {
+    .batches-container {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    .table-container {
+        overflow-x: auto;
+    }
+
+    .batches-table {
+        min-width: 900px;
+    }
+
+    .batch-details-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .batches-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+
+    .batches-title {
+        font-size: 28px;
+    }
+
+    .reagent-properties {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .property-group {
+        min-width: auto;
+    }
+
+    .action-buttons {
+        gap: 10px;
+    }
+
+    .action-btn {
+        padding: 12px 20px;
+        font-size: 14px;
+        min-width: 120px;
+    }
+
+    .batch-actions {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .batches-container {
+        padding: 15px;
+    }
+
+    .batches-title {
+        font-size: 24px;
+    }
+
+    .reagent-info-section {
+        padding: 20px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .action-btn {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .batch-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+/* Стили для ночной темы */
+body.night-theme .batches-container {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.night-theme .batches-table th,
+body.night-theme .batches-table td {
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+}

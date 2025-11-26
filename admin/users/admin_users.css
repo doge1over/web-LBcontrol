@@ -1,0 +1,421 @@
+/* Стили для страницы управления пользователями */
+
+/* Контейнер пользователя */
+.user-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.user-name {
+    font-weight: bold;
+    font-size: 15px;
+    color: #ffffff;
+}
+
+.user-login {
+    font-size: 13px;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.user-department {
+    font-size: 12px;
+    color: #cccccc;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2px 6px;
+    border-radius: 4px;
+    display: inline-block;
+    width: fit-content;
+}
+
+/* Контактная информация */
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.contact-info .email {
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.contact-info .phone {
+    font-size: 13px;
+    color: #cccccc;
+}
+
+/* Информация о входе */
+.login-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.login-date {
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.login-time {
+    font-size: 12px;
+    color: #1AA7EC;
+}
+
+/* Информация о дате и времени для истории */
+.datetime-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.datetime-info .date {
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.datetime-info .time {
+    font-size: 12px;
+    color: #1AA7EC;
+}
+
+/* Бейджи ролей */
+.role-badge {
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-block;
+    text-align: center;
+    min-width: 100px;
+}
+
+.role-администратор {
+    background: linear-gradient(145deg, #e74c3c, #c0392b);
+    color: white;
+    box-shadow: 0 2px 8px rgba(231, 76, 60, 0.3);
+}
+
+.role-химик {
+    background: linear-gradient(145deg, #3498db, #2980b9);
+    color: white;
+    box-shadow: 0 2px 8px rgba(52, 152, 219, 0.3);
+}
+
+.role-лаборант {
+    background: linear-gradient(145deg, #27ae60, #219a52);
+    color: white;
+    box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
+}
+
+.role-исследователь {
+    background: linear-gradient(145deg, #9b59b6, #8e44ad);
+    color: white;
+    box-shadow: 0 2px 8px rgba(155, 89, 182, 0.3);
+}
+
+.role-контроль-качества {
+    background: linear-gradient(145deg, #f39c12, #e67e22);
+    color: white;
+    box-shadow: 0 2px 8px rgba(243, 156, 18, 0.3);
+}
+
+/* Бейджи статусов */
+.status-badge {
+    padding: 6px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: inline-block;
+    text-align: center;
+    min-width: 80px;
+}
+
+.status-active {
+    background: linear-gradient(145deg, #27ae60, #219a52);
+    color: white;
+    box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
+}
+
+.status-inactive {
+    background: linear-gradient(145deg, #95a5a6, #7f8c8d);
+    color: white;
+    box-shadow: 0 2px 8px rgba(149, 165, 166, 0.3);
+}
+
+/* Кнопки действий в таблице */
+.action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    min-width: 120px;
+}
+
+.action-btn-small {
+    padding: 6px 10px;
+    border: none;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-align: left;
+}
+
+.action-btn-small .btn-icon {
+    font-size: 12px;
+    width: 14px;
+    text-align: center;
+}
+
+.action-btn-small .btn-text {
+    flex: 1;
+}
+
+.edit-btn {
+    background: #3498db;
+    color: white;
+}
+
+.edit-btn:hover {
+    background: #2980b9;
+    transform: translateX(2px);
+}
+
+.history-btn {
+    background: #9b59b6;
+    color: white;
+}
+
+.history-btn:hover {
+    background: #8e44ad;
+    transform: translateX(2px);
+}
+
+.delete-btn {
+    background: #e74c3c;
+    color: white;
+}
+
+.delete-btn:hover {
+    background: #c0392b;
+    transform: translateX(2px);
+}
+
+/* Специфичные кнопки для страницы пользователей */
+.password-btn {
+    background: #f39c12;
+    color: white;
+}
+
+.password-btn:hover {
+    background: #e67e22;
+    transform: translateY(-2px);
+}
+
+.permissions-btn {
+    background: #34495e;
+    color: white;
+}
+
+.permissions-btn:hover {
+    background: #2c3e50;
+    transform: translateY(-2px);
+}
+
+/* Секции действий для истории */
+.history-actions {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+/* Адаптивность для пользователей */
+@media (max-width: 1024px) {
+    .user-info,
+    .contact-info,
+    .login-info {
+        min-width: 150px;
+    }
+
+    .role-badge,
+    .status-badge {
+        min-width: 70px;
+        font-size: 11px;
+        padding: 4px 8px;
+    }
+
+    .action-buttons {
+        min-width: 100px;
+    }
+}
+
+@media (max-width: 768px) {
+    .user-name {
+        font-size: 14px;
+    }
+
+    .user-login,
+    .user-department {
+        font-size: 11px;
+    }
+
+    .contact-info .email {
+        font-size: 13px;
+    }
+
+    .contact-info .phone {
+        font-size: 12px;
+    }
+
+    .action-buttons {
+        flex-direction: row;
+        gap: 4px;
+    }
+
+    .action-btn-small {
+        padding: 4px 6px;
+        font-size: 11px;
+        gap: 3px;
+    }
+
+    .action-btn-small .btn-icon {
+        font-size: 10px;
+        width: 12px;
+    }
+
+    .action-btn-small .btn-text {
+        display: none;
+    }
+}
+
+@media (max-width: 480px) {
+    .user-info,
+    .contact-info,
+    .login-info {
+        min-width: 120px;
+    }
+
+    .role-badge,
+    .status-badge {
+        min-width: 60px;
+        font-size: 10px;
+        padding: 3px 6px;
+    }
+
+    .history-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .back-btn {
+        justify-content: center;
+    }
+}
+
+/* Стили для таблицы истории */
+#historyTableBody tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+#historyTableBody td {
+    vertical-align: top;
+}
+
+/* Специфичные стили для ночной темы */
+body.night-theme .user-department {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+body.night-theme .contact-info .email {
+    color: #ffffff;
+}
+
+body.night-theme .contact-info .phone {
+    color: #aaaaaa;
+}
+
+/* Анимации для плавного перехода между таблицами */
+.table-section {
+    transition: all 0.3s ease;
+}
+
+#historySection {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Стили для пустых состояний */
+.admin-table tbody tr td[colspan] {
+    text-align: center;
+    padding: 40px 20px;
+    color: #cccccc;
+    font-style: italic;
+}
+
+/* Ховер эффекты для строк таблицы */
+.admin-table tbody tr {
+    transition: all 0.2s ease;
+}
+
+.admin-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.08);
+    transform: translateX(2px);
+}
+
+/* Стили для модального окна пользователей */
+.edit-form .form-group {
+    margin-bottom: 20px;
+}
+
+.edit-form label {
+    display: block;
+    margin-bottom: 8px;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.edit-form input,
+.edit-form select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.9);
+    color: #1E2F97;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.edit-form input:focus,
+.edit-form select:focus {
+    outline: none;
+    border-color: #1AA7EC;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(26, 167, 236, 0.2);
+}
+
+.edit-form input::placeholder {
+    color: #7f8c8d;
+}

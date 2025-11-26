@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LBcontrol - Производители</title>
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="../admin_pages.css">
+    <link rel="stylesheet" href="admin_manufacturers.css">
+</head>
+<body>
+<div class="header">
+    <div class="logo-container">
+        <img src="../../image/logo.png" alt="LBcontrol Logo" class="logo">
+        <div class="company-name">LBcontrol</div>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()">
+        🌙 Ночная тема
+    </button>
+</div>
+
+<div class="main-container">
+    <div class="admin-container">
+        <div class="admin-header">
+            <a href="../admin_dashboard.html" class="back-button" style="text-decoration: none; display: inline-block;">
+                ← Назад в админку
+            </a>
+            <h1 class="admin-title">🏭 Управление производителями</h1>
+            <button class="support-button" onclick="openSupportModal()">
+                💬 Поддержка
+            </button>
+        </div>
+
+        <!-- Поиск и фильтры -->
+        <div class="search-section">
+            <div class="filter-row">
+                <div class="search-group-with-clear">
+                    <label for="manufacturersSearch">Поиск производителей:</label>
+                    <div class="search-input-container">
+                        <input type="text" id="manufacturersSearch" placeholder="Введите название производителя...">
+                        <button class="clear-search-btn" onclick="clearManufacturersSearch()">×</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Действия -->
+        <div class="action-buttons-section">
+            <button class="action-btn add-btn" onclick="addManufacturer()">
+                ➕ Добавить производителя
+            </button>
+        </div>
+
+        <!-- Таблица производителей -->
+        <div class="table-section">
+            <div class="section-header">
+                <h2>Реестр производителей оборудования и реактивов</h2>
+                <div class="search-results-info">
+                    Найдено: <span id="manufacturersResultsCount">0</span> из <span id="manufacturersTotalCount">0</span>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                    <tr>
+                        <th>Производитель</th>
+                        <th>Контактная информация</th>
+                        <th>Действия</th>
+                    </tr>
+                    </thead>
+                    <tbody id="manufacturersTableBody">
+                    <!-- Данные будут заполняться через JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно для редактирования -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle">Редактирование производителя</h2>
+            <span class="close" onclick="closeEditModal()">&times;</span>
+        </div>
+        <form id="editForm" class="edit-form manufacturer-form">
+            <div id="modalFields">
+                <!-- Поля будут заполняться динамически -->
+            </div>
+            <div class="form-buttons">
+                <button type="button" class="cancel-button" onclick="closeEditModal()">Отменить</button>
+                <button type="submit" class="submit-button">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Модальное окно поддержки -->
+<div id="supportModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Форма поддержки</h2>
+            <span class="close" onclick="closeSupportModal()">&times;</span>
+        </div>
+        <form class="support-form">
+            <div class="form-group">
+                <label for="supportTopic">Тема</label>
+                <input type="text" id="supportTopic" placeholder="Введите тему обращения" required>
+            </div>
+            <div class="form-group">
+                <label for="supportLocation">Раздел системы</label>
+                <select id="supportLocation" required>
+                    <option value="manufacturers" selected>🏭 Производители</option>
+                    <option value="admin">⚙️ Администрирование</option>
+                    <option value="other">❓ Другое</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="supportMessage">Сообщение</label>
+                <textarea id="supportMessage" placeholder="Опишите вашу проблему..." rows="5" required></textarea>
+            </div>
+            <div class="form-buttons">
+                <button type="button" class="cancel-button" onclick="closeSupportModal()">Отмена</button>
+                <button type="submit" class="submit-button">Отправить</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="footer">
+    <p>© 2024 LBcontrol. Система управления лабораторными процессами.</p>
+</div>
+
+<script src="../../script.js"></script>
+<script src="admin_manufacturers_data.js"></script>
+<script src="admin_manufacturers_ui.js"></script>
+<script src="admin_manufacturers_filters.js"></script>
+<script src="admin_manufacturers_products.js"></script>
+<script src="admin_manufacturers_modal.js"></script>
+<script src="admin_manufacturers_actions.js"></script>
+<script src="admin_manufacturers_main.js"></script>
+</body>
+</html>

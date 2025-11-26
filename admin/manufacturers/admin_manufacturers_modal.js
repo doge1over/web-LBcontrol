@@ -1,0 +1,56 @@
+// Функции для модальных окон
+function closeEditModal() {
+    document.getElementById('editModal').style.display = 'none';
+}
+
+function closeSupportModal() {
+    document.getElementById('supportModal').style.display = 'none';
+}
+
+function openSupportModal() {
+    const supportModal = document.getElementById('supportModal');
+    supportModal.style.display = 'flex';
+    supportModal.style.alignItems = 'center';
+    supportModal.style.justifyContent = 'center';
+}
+
+// Закрытие модальных окон при клике вне их
+window.onclick = function(event) {
+    const supportModal = document.getElementById('supportModal');
+    const editModal = document.getElementById('editModal');
+
+    if (event.target === supportModal) {
+        closeSupportModal();
+    }
+    if (event.target === editModal) {
+        closeEditModal();
+    }
+}
+
+// Обработка формы поддержки
+document.addEventListener('DOMContentLoaded', function() {
+    const supportForm = document.querySelector('.support-form');
+    if (supportForm) {
+        supportForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Сообщение отправлено в службу поддержки!');
+            closeSupportModal();
+        });
+    }
+
+    // Стили для центрирования модальных окон
+    const editModal = document.getElementById('editModal');
+    const supportModal = document.getElementById('supportModal');
+
+    if (editModal) {
+        editModal.style.display = 'none';
+        editModal.style.alignItems = 'center';
+        editModal.style.justifyContent = 'center';
+    }
+
+    if (supportModal) {
+        supportModal.style.display = 'none';
+        supportModal.style.alignItems = 'center';
+        supportModal.style.justifyContent = 'center';
+    }
+});

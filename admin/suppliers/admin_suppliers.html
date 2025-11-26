@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LBcontrol - Поставщики</title>
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="../admin_pages.css">
+    <link rel="stylesheet" href="admin_suppliers.css">
+</head>
+<body>
+<div class="header">
+    <div class="logo-container">
+        <img src="../../image/logo.png" alt="LBcontrol Logo" class="logo">
+        <div class="company-name">LBcontrol</div>
+    </div>
+    <button class="theme-toggle" onclick="toggleTheme()">
+        🌙 Ночная тема
+    </button>
+</div>
+
+<div class="main-container">
+    <div class="admin-container">
+        <div class="admin-header">
+            <a href="../admin_dashboard.html" class="back-button" style="text-decoration: none; display: inline-block;">
+                ← Назад в админку
+            </a>
+            <h1 class="admin-title">🚚 Управление поставщиками</h1>
+            <button class="support-button" onclick="openSupportModal()">
+                💬 Поддержка
+            </button>
+        </div>
+
+        <!-- Поиск и фильтры -->
+        <div class="search-section">
+            <div class="filter-row">
+                <div class="search-group-with-clear">
+                    <label for="suppliersSearch">Поиск поставщиков:</label>
+                    <div class="search-input-container">
+                        <input type="text" id="suppliersSearch" placeholder="Введите название поставщика...">
+                        <button class="clear-search-btn" onclick="clearSuppliersSearch()">×</button>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label for="statusFilter">Статус:</label>
+                    <select id="statusFilter" onchange="applySuppliersFilters()">
+                        <option value="">Все статусы</option>
+                        <option value="active">Активен</option>
+                        <option value="inactive">Неактивен</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Действия -->
+        <div class="action-buttons-section">
+            <button class="action-btn add-btn" onclick="addSupplier()">
+                ➕ Добавить поставщика
+            </button>
+        </div>
+
+        <!-- Таблица поставщиков -->
+        <div class="table-section">
+            <div class="section-header">
+                <h2>Реестр поставщиков химических реактивов</h2>
+                <div class="search-results-info">
+                    Найдено: <span id="suppliersResultsCount">0</span> из <span id="suppliersTotalCount">0</span>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                    <tr>
+                        <th>Поставщик</th>
+                        <th>Контактная информация</th>
+                        <th>Действия</th>
+                    </tr>
+                    </thead>
+                    <tbody id="suppliersTableBody">
+                    <!-- Данные будут заполняться через JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Модальное окно для редактирования -->
+<div id="editModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2 id="modalTitle">Редактирование поставщика</h2>
+            <span class="close" onclick="closeEditModal()">&times;</span>
+        </div>
+        <form id="editForm" class="edit-form supplier-form">
+            <div id="modalFields">
+                <!-- Поля будут заполняться динамически -->
+            </div>
+            <div class="form-buttons">
+                <button type="button" class="cancel-button" onclick="closeEditModal()">Отменить</button>
+                <button type="submit" class="submit-button">Сохранить</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- Модальное окно поддержки -->
+<div id="supportModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h2>Форма поддержки</h2>
+            <span class="close" onclick="closeSupportModal()">&times;</span>
+        </div>
+        <form class="support-form">
+            <div class="form-group">
+                <label for="supportTopic">Тема</label>
+                <input type="text" id="supportTopic" placeholder="Введите тему обращения" required>
+            </div>
+            <div class="form-group">
+                <label for="supportLocation">Раздел системы</label>
+                <select id="supportLocation" required>
+                    <option value="suppliers" selected>🚚 Поставщики</option>
+                    <option value="admin">⚙️ Администрирование</option>
+                    <option value="other">❓ Другое</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="supportMessage">Сообщение</label>
+                <textarea id="supportMessage" placeholder="Опишите вашу проблему..." rows="5" required></textarea>
+            </div>
+            <div class="form-buttons">
+                <button type="button" class="cancel-button" onclick="closeSupportModal()">Отмена</button>
+                <button type="submit" class="submit-button">Отправить</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="footer">
+    <p>© 2024 LBcontrol. Система управления лабораторными процессами.</p>
+</div>
+
+<script src="../../script.js"></script>
+<script src="admin_suppliers_data.js"></script>
+<script src="admin_suppliers_ui.js"></script>
+<script src="admin_suppliers_filters.js"></script>
+<script src="admin_suppliers_products.js"></script>
+<script src="admin_suppliers_modal.js"></script>
+<script src="admin_suppliers_actions.js"></script>
+<script src="admin_suppliers_main.js"></script>
+</body>
+</html>
