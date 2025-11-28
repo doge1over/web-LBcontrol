@@ -983,3 +983,135 @@
         font-size: 13px;
     }
 }
+
+
+
+/* === ПРЕДОТВРАЩЕНИЕ СКАЧКОВ СТРАНИЦЫ ПРИ ПОИСКЕ === */
+
+/* Фиксированные высоты контейнеров */
+.admin-container {
+    min-height: calc(100vh - 200px);
+}
+
+.admin-header {
+    min-height: 80px;
+}
+
+.search-section {
+    min-height: 100px;
+}
+
+.action-buttons-section {
+    min-height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.section-header {
+    min-height: 60px;
+}
+
+.table-section {
+    min-height: 500px;
+}
+
+.table-container {
+    min-height: 400px;
+}
+
+/* Фиксированная табличная разметка */
+.admin-table {
+    table-layout: fixed;
+}
+
+/* Фиксированные высоты строк таблицы */
+.admin-table th,
+.admin-table td {
+    height: 60px;
+    box-sizing: border-box;
+}
+
+.admin-table tbody tr {
+    height: 70px;
+}
+
+/* Фиксированные ширины колонок */
+.admin-table th:nth-child(1),
+.admin-table td:nth-child(1) {
+    width: 35%;
+}
+
+.admin-table th:nth-child(2),
+.admin-table td:nth-child(2) {
+    width: 45%;
+}
+
+.admin-table th:nth-child(3),
+.admin-table td:nth-child(3) {
+    width: 20%;
+    text-align: center;
+}
+
+/* Фиксированная высота для контента */
+.manufacturer-name,
+.contact-info {
+    min-height: 24px;
+    line-height: 1.4;
+    display: flex;
+    align-items: center;
+}
+
+/* Резервирование места для предотвращения CLS */
+.manufacturer-name::before,
+.contact-info::before {
+    content: "";
+    display: block;
+    height: 20px;
+    visibility: hidden;
+}
+
+
+/* Фиксированная высота для состояний загрузки и пустых данных */
+.loading-state,
+.no-data {
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Плавные переходы */
+.search-section,
+.table-section,
+.admin-table,
+.table-container {
+    transition: all 0.2s ease-in-out;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 1024px) {
+    .admin-table {
+        table-layout: auto;
+    }
+
+    .admin-table th:nth-child(1),
+    .admin-table td:nth-child(1),
+    .admin-table th:nth-child(2),
+    .admin-table td:nth-child(2),
+    .admin-table th:nth-child(3),
+    .admin-table td:nth-child(3) {
+        width: auto;
+    }
+}
+
+@media (max-width: 768px) {
+    .table-section {
+        min-height: 400px;
+    }
+
+    .action-buttons {
+        flex-direction: column;
+        gap: 5px;
+    }
+}

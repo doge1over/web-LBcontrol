@@ -1,76 +1,90 @@
-// Функции для работы с производителями
+
+// Глобальная переменная для хранения данных
+let manufacturersData = [];
+
+// Функция для добавления производителя
 function addManufacturer() {
     document.getElementById('modalTitle').textContent = 'Добавление производителя';
     document.getElementById('modalFields').innerHTML = `
         <div class="form-group">
-            <label for="manufacturerName">Название производителя</label>
-            <input type="text" id="manufacturerName" placeholder="Введите название" required>
-        </div>
-        <div class="form-group">
-            <label for="manufacturerContact">Контактный телефон</label>
-            <input type="tel" id="manufacturerContact" placeholder="+7 (XXX) XXX-XX-XX" required>
-        </div>
-        <div class="form-group">
-            <label for="manufacturerEmail">Email</label>
-            <input type="email" id="manufacturerEmail" placeholder="Введите email" required>
-        </div>
-        <div class="form-group">
-            <label for="manufacturerWebsite">Веб-сайт</label>
-            <input type="text" id="manufacturerWebsite" placeholder="www.example.com" required>
+            <label for="manufacturerName">Название производителя *</label>
+            <input type="text" id="manufacturerName" placeholder="Введите название производителя" required>
         </div>
     `;
 
     const editModal = document.getElementById('editModal');
     editModal.style.display = 'flex';
-    editModal.style.alignItems = 'center';
-    editModal.style.justifyContent = 'center';
+
+    // Фокус на поле ввода
+    setTimeout(() => {
+        document.getElementById('manufacturerName').focus();
+    }, 100);
 }
 
+// Функция для редактирования производителя
 function editManufacturer(manufacturerId) {
     const manufacturer = manufacturersData.find(m => m.id === manufacturerId);
     if (manufacturer) {
         document.getElementById('modalTitle').textContent = 'Редактирование производителя';
         document.getElementById('modalFields').innerHTML = `
             <div class="form-group">
-                <label for="manufacturerName">Название производителя</label>
+                <label for="manufacturerName">Название производителя *</label>
                 <input type="text" id="manufacturerName" value="${manufacturer.name}" required>
-            </div>
-            <div class="form-group">
-                <label for="manufacturerContact">Контактный телефон</label>
-                <input type="tel" id="manufacturerContact" value="${manufacturer.contact}" required>
-            </div>
-            <div class="form-group">
-                <label for="manufacturerEmail">Email</label>
-                <input type="email" id="manufacturerEmail" value="${manufacturer.email}" required>
-            </div>
-            <div class="form-group">
-                <label for="manufacturerWebsite">Веб-сайт</label>
-                <input type="text" id="manufacturerWebsite" value="${manufacturer.website}" required>
             </div>
             <input type="hidden" id="manufacturerId" value="${manufacturer.id}">
         `;
 
         const editModal = document.getElementById('editModal');
         editModal.style.display = 'flex';
-        editModal.style.alignItems = 'center';
-        editModal.style.justifyContent = 'center';
+
+        setTimeout(() => {
+            document.getElementById('manufacturerName').focus();
+        }, 100);
     }
 }
 
-function deleteManufacturer(manufacturerId) {
+// Функция для удаления производителя
+async function deleteManufacturer(manufacturerId) {
     if (confirm('Вы уверены, что хотите удалить этого производителя?')) {
-        alert(`Производитель ID: ${manufacturerId} будет удален`);
+        try {
+            await manufacturerService.delete(manufacturerId);
+            await loadManufacturersData(); // Перезагружаем данные
+            alert('Производитель успешно удален');
+        } catch (error) {
+            alert('Ошибка при удалении производителя: ' + error.message);
+        }
     }
 }
 
-// Обработка формы редактирования
+// Обработка формы редактирования/добавления
 document.addEventListener('DOMContentLoaded', function() {
     const editForm = document.getElementById('editForm');
     if (editForm) {
-        editForm.addEventListener('submit', function(e) {
+        editForm.addEventListener('submit', async function(e) {
             e.preventDefault();
-            alert('Изменения сохранены!');
-            closeEditModal();
+
+            const name = document.getElementById('manufacturerName').value.trim();
+            const manufacturerId = document.getElementById('manufacturerId')?.value;
+
+            if (!name) {
+                alert('Введите название производителя');
+                return;
+            }
+
+            try {
+                if (manufacturerId) {
+                    // Редактирование существующего
+                    await manufacturerService.update(parseInt(manufacturerId), name);
+                } else {
+                    // Создание нового
+                    await manufacturerService.create(name);
+                }
+
+                await loadManufacturersData(); // Перезагружаем данные
+                closeEditModal();
+            } catch (error) {
+                alert('Ошибка при сохранении: ' + error.message);
+            }
         });
     }
 });

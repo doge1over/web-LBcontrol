@@ -1,3 +1,5 @@
+// admin_manufacturers_main.js
+
 // Функция для возврата в админку
 function goToAdmin() {
     window.location.href = 'admin_dashboard.html';
@@ -14,7 +16,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Загрузка данных при загрузке страницы
-    setTimeout(() => {
-        loadManufacturersData();
-    }, 100);
+    loadManufacturersData();
 });
